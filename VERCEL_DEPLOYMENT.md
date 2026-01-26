@@ -1,36 +1,35 @@
 # Vercel Deployment Guide for Deltasoft Frontend
 
-## Quick Fix
+## Quick Fix - Two Options Available
 
-The project is configured for Vercel deployment. The `vercel.json` file in the root directory tells Vercel how to build your frontend.
+The project now has **two `vercel.json` files** configured for different deployment methods:
 
-## Option 1: Deploy from Root (Current Setup)
-
-The `vercel.json` file is already configured. When deploying:
+### Option 1: Root Directory = Repository Root (Use root vercel.json)
 
 1. **In Vercel Dashboard:**
-   - Go to your project settings
-   - Make sure the **Root Directory** is set to the repository root (not `frontend`)
-   - The `vercel.json` will handle the build configuration
+   - Go to Project Settings → General
+   - Set **Root Directory** to `.` (repository root) or leave it empty
+   - Save settings
 
-2. **The build should work automatically** with the current configuration
+2. **The root `vercel.json` will handle the build** - it will:
+   - Change to `frontend` directory
+   - Run `npm install`
+   - Run `npm run build`
+   - Output from `frontend/build`
 
-## Option 2: Deploy Frontend Directory Directly (Recommended)
-
-This is the simpler approach:
+### Option 2: Root Directory = frontend (Recommended - Simpler)
 
 1. **In Vercel Dashboard:**
    - Go to Project Settings → General
    - Set **Root Directory** to `frontend`
    - Save settings
 
-2. **Remove or ignore the root `vercel.json`** (Vercel will auto-detect Create React App)
-
-3. **Redeploy** - Vercel will automatically:
-   - Detect it's a Create React App
-   - Run `npm install`
+2. **The `frontend/vercel.json` will be used** - it will:
+   - Run `npm install` (already in frontend directory)
    - Run `npm run build`
-   - Serve from the `build` directory
+   - Output from `build` directory
+
+3. **Redeploy** - This is the simpler approach and should work immediately
 
 ## Common Issues and Fixes
 
