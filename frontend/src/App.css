@@ -1,0 +1,22 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.App > *:not(.home-page) {
+  flex: 1;
+}
+
+/* Color Variables */
+:root {
+  --primary-green: #b7e400;
+  --primary-black: #000001;
+  --primary-white: #ffffff;
+}
+
+html, body {
+  min-height: 100%;
+}
+

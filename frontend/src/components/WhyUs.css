@@ -1,0 +1,45 @@
+.whyus-page {
+  min-height: 100vh;
+  padding: 100px 20px 60px;
+  background: linear-gradient(135deg, #000001 0%, #1a1a1a 50%, #000001 100%);
+  color: var(--primary-white);
+}
+
+.whyus-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.whyus-title {
+  font-size: 48px;
+  text-align: center;
+  color: var(--primary-green);
+  margin-bottom: 30px;
+}
+
+.whyus-text {
+  font-size: 20px;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.highlight {
+  color: var(--primary-green);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .whyus-page {
+    padding: 80px 15px 40px;
+  }
+
+  .whyus-title {
+    font-size: 32px;
+  }
+
+  .whyus-text {
+    font-size: 16px;
+  }
+}
+
+

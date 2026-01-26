@@ -1,0 +1,114 @@
+.excel-section {
+  width: 100%;
+}
+
+.excel-description {
+  font-size: 14px;
+  color: #9ca3af;
+  margin-bottom: 20px;
+}
+
+.excel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.excel-upload {
+  margin-bottom: 4px;
+}
+
+.excel-upload-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background-color: #020617;
+  border-radius: 10px;
+  border: 1px dashed #4b5563;
+  cursor: pointer;
+}
+
+.excel-upload-label input {
+  display: none;
+}
+
+.upload-icon {
+  font-size: 22px;
+}
+
+.upload-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-title {
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+.upload-subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.excel-status {
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.excel-status.success {
+  background-color: rgba(34, 197, 94, 0.12);
+  color: #bbf7d0;
+}
+
+.excel-status.error {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #fecaca;
+}
+
+.excel-submit-btn {
+  align-self: flex-start;
+  margin-top: 4px;
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: #f9fafb;
+}
+
+.excel-submit-btn:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.excel-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.excel-hint {
+  margin-top: 18px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.excel-hint ul {
+  margin: 6px 0 0 18px;
+  padding: 0;
+}
+
+.excel-hint li {
+  margin-bottom: 4px;
+}
+
+@media (max-width: 768px) {
+  .excel-section .section-title {
+    font-size: 24px;
+  }
+}
+
+
