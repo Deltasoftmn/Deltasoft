@@ -1,12 +1,23 @@
 .App {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .App > *:not(.home-page) {
   flex: 1;
+}
+
+@media (max-width: 768px) {
+  .App {
+    overflow: visible;
+  }
+
+  .App > *:not(.home-page) {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 /* Color Variables */
@@ -17,6 +28,7 @@
 }
 
 html, body {
-  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 

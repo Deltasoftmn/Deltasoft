@@ -3,6 +3,8 @@ import './Hero.css';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   const slides = [
     {
@@ -39,11 +41,32 @@ const Hero = () => {
     }
   ];
 
-  // Auto-play carousel
+  // Auto-play carousel (pause on hover/touch)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // Change slide every 5 seconds
+    let interval;
+    const startInterval = () => {
+      interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }, 5000); // Change slide every 5 seconds
+    };
+
+    startInterval();
+
+    // Pause on hover
+    const carousel = document.querySelector('.hero-carousel-wrapper');
+    if (carousel) {
+      const handleMouseEnter = () => clearInterval(interval);
+      const handleMouseLeave = () => startInterval();
+      
+      carousel.addEventListener('mouseenter', handleMouseEnter);
+      carousel.addEventListener('mouseleave', handleMouseLeave);
+
+      return () => {
+        clearInterval(interval);
+        carousel.removeEventListener('mouseenter', handleMouseEnter);
+        carousel.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    }
 
     return () => clearInterval(interval);
   }, [slides.length]);
@@ -60,6 +83,32 @@ const Hero = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
+  // Touch handlers for swipe
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      goToNext();
+    }
+    if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
+
   return (
     <section className="hero">
       <div className="hero-container">
@@ -67,7 +116,12 @@ const Hero = () => {
           <button className="carousel-arrow carousel-arrow-left" onClick={goToPrevious}>
             ‹
           </button>
-          <div className="hero-carousel">
+          <div 
+            className="hero-carousel"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -98,10 +152,6 @@ const Hero = () => {
                             <p>SECURITY & COMPLIANCE</p>
                           </div>
                         </div>
-                        <div className="bonus-item">
-                          <div className="bonus-icon">🎁</div>
-                          <div className="bonus-text">Free Consultation</div>
-                        </div>
                       </div>
                     </div>
                     <div className="hero-right">
@@ -110,8 +160,6 @@ const Hero = () => {
                         <div className="hero-product-image">
                           <img src={slide.image} alt={slide.productTitle} />
                         </div>
-                        <h3 className="hero-product-title">{slide.productTitle}</h3>
-                        <button className="details-btn">LEARN MORE</button>
                       </div>
                     </div>
                   </div>

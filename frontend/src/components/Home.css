@@ -1,7 +1,19 @@
 .home-page {
-  height: calc(100vh - 140px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-top: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    padding-top: 120px;
+    height: 100vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 

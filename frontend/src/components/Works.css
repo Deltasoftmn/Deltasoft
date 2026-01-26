@@ -5,6 +5,16 @@
   color: var(--primary-white);
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .works-page {
+    padding-top: 140px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 40px;
+  }
 }
 
 .works-container {

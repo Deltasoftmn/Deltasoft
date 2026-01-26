@@ -3,6 +3,18 @@
   padding: 100px 20px 60px;
   background: linear-gradient(135deg, #000001 0%, #1a1a1a 50%, #000001 100%);
   color: var(--primary-white);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  .whyus-page {
+    padding-top: 140px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 40px;
+  }
 }
 
 .whyus-container {

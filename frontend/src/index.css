@@ -6,6 +6,8 @@
 
 html, body, #root {
   min-height: 100%;
+  overflow: hidden;
+  height: 100%;
 }
 
 body {
@@ -17,6 +19,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #000001 0%, #1a1a1a 50%, #000001 100%);
   color: #ffffff;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+  html, body {
+    overflow: visible;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  #root {
+    overflow: visible;
+    height: auto;
+    min-height: 100vh;
+  }
 }
 
 code {

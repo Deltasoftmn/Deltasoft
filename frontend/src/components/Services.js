@@ -4,34 +4,34 @@ import './Services.css';
 const Services = () => {
   const services = [
     {
-      title: "Гэрээт IT үйлчилгээ",
+      title: "Гэрээт ІТ үйлчилгээ",
       icon: "💻",
       description: "IT outsourcing services"
     },
     {
-      title: "Камер, Дэд бүтцийн шийдэл",
-      icon: "📹",
-      description: "Camera & Infrastructure solutions"
-    },
-    {
-      title: "Суурилуулалт, тохируулах үйлчилгээ",
-      icon: "🔧",
-      description: "Installation & configuration services"
-    },
-    {
-      title: "Вэб сайт хөгжүүлэх",
-      icon: "🌐",
-      description: "Web development"
-    },
-    {
-      title: "МАБ-ын зөвлөх, гэрээт үйлчилгээ",
+      title: "МАБ-ын Outsourcing үйлчилгээ",
       icon: "💼",
-      description: "ERP consulting & contract services"
+      description: "MAB outsourcing services"
     },
     {
-      title: "Social Content Marketing үйлчилгээ",
+      title: "Вэб сайт, Програм хангамж хөгжүүлэх",
+      icon: "🌐",
+      description: "Website & Software Development"
+    },
+    {
+      title: "Тоног төхөөрөмж, худалдаа, засвар үйлчилгээ",
+      icon: "🔧",
+      description: "Equipment, Trade & Repair Services"
+    },
+    {
+      title: "Social хуудас болон котент хөгжүүлэлт",
       icon: "📱",
-      description: "Social content marketing services"
+      description: "Social Pages & Content Development"
+    },
+    {
+      title: "Дэлгэцийн реклам",
+      icon: "📢",
+      description: "Display Advertising"
     }
   ];
 

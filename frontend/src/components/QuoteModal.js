@@ -124,10 +124,12 @@ const QuoteModal = ({ onClose }) => {
                 onChange={handleChange}
               >
                 <option value="">Сонгох</option>
-                <option value="Вэб сайт хөгжүүлэх">Вэб сайт хөгжүүлэх</option>
-                <option value="Мобайл апп хөгжүүлэх">Мобайл апп хөгжүүлэх</option>
-                <option value="Камер, дэд бүтэц">Камер, дэд бүтцийн шийдэл</option>
-                <option value="Гэрээт IT үйлчилгээ">Гэрээт IT үйлчилгээ</option>
+                <option value="Гэрээт ІТ үйлчилгээ">Гэрээт ІТ үйлчилгээ</option>
+                <option value="МАБ-ын Outsourcing үйлчилгээ">МАБ-ын Outsourcing үйлчилгээ</option>
+                <option value="Вэб сайт, Програм хангамж хөгжүүлэх">Вэб сайт, Програм хангамж хөгжүүлэх</option>
+                <option value="Тоног төхөөрөмж, худалдаа, засвар үйлчилгээ">Тоног төхөөрөмж, худалдаа, засвар үйлчилгээ</option>
+                <option value="Social хуудас болон котент хөгжүүлэлт">Social хуудас болон котент хөгжүүлэлт</option>
+                <option value="Дэлгэцийн реклам">Дэлгэцийн реклам</option>
                 <option value="Бусад">Бусад</option>
               </select>
             </div>

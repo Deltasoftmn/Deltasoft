@@ -74,7 +74,7 @@
 
 @media (max-width: 768px) {
   .services {
-    padding: 60px 15px;
+    padding: 20px 15px;
   }
   
   .services-title {
@@ -83,12 +83,26 @@
   }
   
   .services-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
   
   .service-card {
-    padding: 30px 20px;
+    padding: 15px 10px;
+  }
+
+  .service-icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+
+  .service-title {
+    font-size: 11px;
+    min-height: 28px;
+  }
+
+  .service-description {
+    font-size: 10px;
   }
 }
 
