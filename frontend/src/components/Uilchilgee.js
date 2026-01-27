@@ -9,9 +9,9 @@ const Uilchilgee = () => {
         <div className="uilchilgee-divider" />
         <p className="uilchilgee-subtitle">Гэрээт ІТ үйлчилгээ — МТ дэмжлэгийн багцууд</p>
 
-        <div className="packages-grid">
+        <div className="packages-grid" data-aos="stagger">
           {/* START IT SUPPORT */}
-          <div className="package-card">
+          <div className="package-card aos-stagger-item">
             <h2 className="package-title">START IT SUPPORT</h2>
             <p className="package-subtitle">СУУРЬ МТ ДЭМЖЛЭГИЙН БАГЦ<br />(Basic IT Support Package)</p>
             <ul className="package-list">
@@ -44,7 +44,7 @@ const Uilchilgee = () => {
           </div>
 
           {/* PRO IT SUPPORT */}
-          <div className="package-card package-card-pro">
+          <div className="package-card package-card-pro aos-stagger-item">
             <h2 className="package-title">PRO IT SUPPORT</h2>
             <p className="package-subtitle">ӨРГӨТГӨСӨН МТ ДЭМЖЛЭГИЙН БАГЦ<br />(Extended IT Support Package)</p>
             <ul className="package-list">
@@ -74,7 +74,7 @@ const Uilchilgee = () => {
           </div>
 
           {/* PREMIUM IT SUPPORT */}
-          <div className="package-card package-card-premium">
+          <div className="package-card package-card-premium aos-stagger-item">
             <h2 className="package-title">PREMIUM IT SUPPORT</h2>
             <p className="package-subtitle">ИЖ БҮРЭН МТ УДИРДЛАГЫН БАГЦ<br />(Full IT Management Package)</p>
             <ul className="package-list">

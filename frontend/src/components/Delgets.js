@@ -41,7 +41,7 @@ const Delgets = () => {
         <h1 className="delgets-title">ДЭЛГЭЦ</h1>
         <div className="delgets-divider" />
 
-        <div className="delgets-carousel-wrap">
+        <div className="delgets-carousel-wrap" data-aos="fade-up">
           <button type="button" className="delgets-arrow delgets-arrow-left" onClick={prev} aria-label="Өмнөх">‹</button>
           <div
             className="delgets-carousel"

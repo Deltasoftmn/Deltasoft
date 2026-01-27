@@ -111,7 +111,8 @@
 
 @media (max-width: 768px) {
   .delgets-page {
-    padding: 140px 15px 40px;
+    padding: calc(120px + env(safe-area-inset-top, 0px)) 16px 40px;
+    padding-bottom: max(40px, env(safe-area-inset-bottom, 0px) + 24px);
   }
 
   .delgets-title {

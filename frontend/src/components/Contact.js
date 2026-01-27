@@ -66,7 +66,7 @@ const Contact = () => {
         <h1 className="contact-title">ХОЛБОО БАРИХ</h1>
         <div className="contact-divider" />
 
-        <div className="contact-grid">
+        <div className="contact-grid" data-aos="fade-up">
           <div className="contact-info">
             <div className="info-block">
               <div className="info-icon">📍</div>

@@ -32,9 +32,9 @@ const Works = () => {
           <h1 className="works-title">БИДНИЙ ХИЙСЭН ТОМООХОН АЖЛУУД</h1>
           <div className="title-divider"></div>
           
-          <div className="projects-grid">
+          <div className="projects-grid" data-aos="stagger">
             {projects.map((project, index) => (
-              <div key={index} className="project-card">
+              <div key={index} className="project-card aos-stagger-item">
                 <div className="project-icon">{project.icon}</div>
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-description">{project.description}</p>

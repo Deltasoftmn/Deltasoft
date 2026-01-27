@@ -28,3 +28,70 @@
   --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
+/* ---- Keyframes ---- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes subtlePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+/* ---- AOS (animate on scroll) ---- */
+[data-aos] {
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+[data-aos="fade"] { transform: none; }
+[data-aos="fade-up"] { transform: translateY(24px); }
+[data-aos="fade-left"] { transform: translateX(-24px); }
+[data-aos="fade-right"] { transform: translateX(24px); }
+
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger: parent gets data-aos="stagger", children get .aos-stagger-item */
+[data-aos="stagger"] { opacity: 1; transform: none; }
+[data-aos="stagger"] .aos-stagger-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+[data-aos="stagger"].aos-animate .aos-stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(1) { transition-delay: 0.05s; }
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(2) { transition-delay: 0.1s; }
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(3) { transition-delay: 0.15s; }
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(4) { transition-delay: 0.2s; }
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(5) { transition-delay: 0.25s; }
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(6) { transition-delay: 0.3s; }
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(7) { transition-delay: 0.35s; }
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(8) { transition-delay: 0.4s; }
+[data-aos="stagger"].aos-animate .aos-stagger-item:nth-child(9) { transition-delay: 0.45s; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-aos],
+  [data-aos].aos-animate,
+  [data-aos="stagger"] .aos-stagger-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

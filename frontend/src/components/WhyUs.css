@@ -8,15 +8,6 @@
   -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 768px) {
-  .whyus-page {
-    padding-top: 140px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 40px;
-  }
-}
-
 .whyus-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -45,7 +36,8 @@
 
 @media (max-width: 768px) {
   .whyus-page {
-    padding: 80px 15px 40px;
+    padding: calc(120px + env(safe-area-inset-top, 0px)) 16px 40px;
+    padding-bottom: max(40px, env(safe-area-inset-bottom, 0px) + 24px);
   }
 
   .whyus-title {

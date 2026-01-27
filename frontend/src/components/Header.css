@@ -135,6 +135,24 @@
   color: var(--primary-green);
 }
 
+.nav-item:not(.active)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary-green);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.25s var(--ease);
+}
+
+.nav-item:not(.active):hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
 .nav-item.active {
   color: var(--primary-green);
   border-bottom: 2px solid var(--primary-green);
@@ -224,13 +242,23 @@
   box-shadow: 0 4px 16px rgba(183, 228, 0, 0.45);
 }
 
+.quote-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
 .mobile-menu-btn {
   display: none;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   font-size: 24px;
   cursor: pointer;
   color: var(--primary-white);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-menu {
@@ -240,11 +268,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 1, 0.98);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(8px);
   flex-direction: column;
-  padding: 80px 20px 20px;
-  gap: 15px;
+  padding: calc(72px + env(safe-area-inset-top, 0px)) 20px max(20px, env(safe-area-inset-bottom, 0px) + 12px);
+  gap: 4px;
   z-index: 2000;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -252,20 +280,23 @@
 
 .mobile-menu-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: max(16px, env(safe-area-inset-top, 0px) + 8px);
+  right: max(16px, env(safe-area-inset-right, 0px) + 8px);
   background: none;
   border: none;
   color: var(--primary-white);
-  font-size: 28px;
+  font-size: 24px;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.3s;
+  transition: color 0.2s var(--ease);
   z-index: 2001;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-menu-close:hover {
@@ -276,13 +307,18 @@
   color: var(--primary-white);
   text-decoration: none;
   font-weight: 500;
-  padding: 10px;
-  border-bottom: 1px solid #333;
-  transition: color 0.3s;
+  padding: 14px 16px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-menu a:hover {
   color: var(--primary-green);
+  background: rgba(255,255,255,0.04);
 }
 
 .mobile-dropdown {
@@ -293,32 +329,38 @@
   color: var(--primary-white);
   text-decoration: none;
   font-weight: 500;
-  padding: 10px;
-  border-bottom: 1px solid #333;
-  cursor: pointer;
+  padding: 14px 16px;
+  min-height: 48px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  transition: color 0.3s;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-dropdown-trigger:hover {
   color: var(--primary-green);
+  background: rgba(255,255,255,0.04);
 }
 
 .mobile-dropdown-menu {
-  background-color: #2a2a2a;
-  padding-left: 20px;
+  background: rgba(255,255,255,0.03);
+  padding-left: 8px;
 }
 
 .mobile-dropdown-menu a {
-  display: block;
-  padding: 10px 20px;
-  color: #cccccc;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 14px 20px 14px 28px;
+  color: rgba(255,255,255,0.85);
   text-decoration: none;
-  font-size: 13px;
-  border-bottom: 1px solid #333;
-  transition: color 0.3s;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mobile-dropdown-menu a:hover {
@@ -333,6 +375,7 @@
     right: 0;
     z-index: 1000;
     width: 100%;
+    padding-top: env(safe-area-inset-top, 0px);
   }
 
   .top-banner {
@@ -378,7 +421,7 @@
   }
   
   .mobile-menu-btn {
-    display: block;
+    display: flex;
     z-index: 2001;
     position: relative;
   }
@@ -403,12 +446,10 @@
   .mobile-menu a,
   .mobile-dropdown-trigger {
     font-size: 16px;
-    padding: 12px 10px;
   }
 
   .mobile-dropdown-menu a {
     font-size: 14px;
-    padding: 10px 20px;
   }
 }
 

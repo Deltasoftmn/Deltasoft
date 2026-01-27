@@ -10,10 +10,12 @@
 
 @media (max-width: 768px) {
   .home-page {
-    padding-top: 120px;
+    padding-top: calc(120px + env(safe-area-inset-top, 0px));
     height: 100vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

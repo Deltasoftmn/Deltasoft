@@ -31,14 +31,14 @@ const About = () => {
         <h1 className="about-title">БИДНИЙ ТУХАЙ</h1>
         <div className="about-divider" />
 
-        <section className="about-intro-block">
+        <section className="about-intro-block" data-aos="fade-up">
           <h2 className="about-intro-heading">КОМПАНИЙ ТАНИЛЦУУЛГА</h2>
           {INTRO_PARAGRAPHS.map((p, i) => (
             <p key={i} className="about-intro-text">{p}</p>
           ))}
         </section>
 
-        <section className="about-team-section">
+        <section className="about-team-section" data-aos="fade-up">
           <h2 className="about-team-heading">МАНАЙ ХАМТ ОЛОН</h2>
 
           <div className="team-detailed-grid">

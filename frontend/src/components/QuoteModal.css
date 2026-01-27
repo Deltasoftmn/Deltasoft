@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   z-index: 2000;
+  animation: fadeIn 0.25s var(--ease) both;
 }
 
 .quote-modal {
@@ -19,6 +20,7 @@
   box-shadow: var(--shadow-md), 0 0 0 1px var(--border);
   border: 1px solid var(--border);
   color: #e5e7eb;
+  animation: fadeInUp 0.3s var(--ease) 0.05s both;
 }
 
 .quote-modal-header {
@@ -149,17 +151,54 @@
   transform: translateY(-1px);
 }
 
+.quote-submit-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
 .quote-cancel-btn:hover {
   background: rgba(255, 255, 255, 0.12);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .quote-modal-backdrop {
+    animation: none;
+  }
+  .quote-modal {
+    animation: none;
+  }
+}
+
 @media (max-width: 640px) {
   .quote-modal {
-    padding: 20px 18px 18px;
+    width: 100%;
+    max-width: none;
+    margin: 16px;
+    padding: 20px 18px;
+    padding-bottom: max(18px, env(safe-area-inset-bottom, 0px) + 12px);
   }
 
   .quote-form-row {
     grid-template-columns: 1fr;
+  }
+
+  .quote-form-group input,
+  .quote-form-group select,
+  .quote-form-group textarea {
+    min-height: 48px;
+  }
+
+  .quote-form-group textarea {
+    min-height: 100px;
+  }
+
+  .quote-actions {
+    flex-wrap: wrap;
+  }
+
+  .quote-cancel-btn,
+  .quote-submit-btn {
+    min-height: 48px;
+    padding: 12px 20px;
   }
 }
 

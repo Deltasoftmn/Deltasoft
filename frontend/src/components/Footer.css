@@ -47,13 +47,28 @@
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding: 20px 16px;
+    padding-bottom: max(20px, env(safe-area-inset-bottom, 0px) + 16px);
+  }
+
   .footer-content {
     flex-direction: column;
     text-align: center;
+    gap: 16px;
   }
   
   .footer-left {
     justify-content: center;
+    gap: 8px;
+  }
+
+  .footer-left a {
+    font-size: 13px;
+  }
+
+  .separator {
+    margin: 0 4px;
   }
 }
 

@@ -38,9 +38,9 @@ const Services = () => {
   return (
     <section className="services" id="services">
       <div className="services-container">
-        <div className="services-grid">
+        <div className="services-grid" data-aos="stagger">
           {services.map((service, index) => (
-            <div key={index} className="service-card">
+            <div key={index} className="service-card aos-stagger-item">
               <div className="service-icon">{service.icon}</div>
               <h3 className="service-title">{service.title}</h3>
               <p className="service-description">{service.description}</p>
