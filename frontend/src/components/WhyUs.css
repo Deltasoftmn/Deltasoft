@@ -1,7 +1,7 @@
 .whyus-page {
   min-height: 100vh;
   padding: 100px 20px 60px;
-  background: linear-gradient(135deg, #000001 0%, #1a1a1a 50%, #000001 100%);
+  background: #0a0a0a;
   color: var(--primary-white);
   overflow-y: auto;
   overflow-x: hidden;
@@ -24,15 +24,18 @@
 
 .whyus-title {
   font-size: 48px;
+  font-weight: 800;
   text-align: center;
   color: var(--primary-green);
   margin-bottom: 30px;
+  letter-spacing: 1px;
 }
 
 .whyus-text {
-  font-size: 20px;
-  line-height: 1.8;
+  font-size: 19px;
+  line-height: 1.85;
   text-align: justify;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .highlight {

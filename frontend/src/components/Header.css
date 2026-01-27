@@ -1,13 +1,16 @@
 .header {
   position: relative;
   z-index: 1000;
-  background: linear-gradient(180deg, #000001 0%, #1a1a1a 100%);
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
 .top-banner {
-  background-color: var(--primary-green);
-  padding: 8px 0;
+  background: linear-gradient(90deg, var(--primary-green) 0%, #a8d600 100%);
+  padding: 10px 0;
   width: 100%;
 }
 
@@ -89,9 +92,7 @@
 }
 
 .main-nav {
-  background: linear-gradient(180deg, #1a1a1a 0%, #000001 100%);
-  padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  padding: 14px 0;
 }
 
 .nav-content {
@@ -122,12 +123,12 @@
 }
 
 .nav-item {
-  color: var(--primary-white);
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-weight: 500;
   font-size: 14px;
   position: relative;
-  transition: color 0.3s;
+  transition: color 0.25s var(--ease);
 }
 
 .nav-item:hover {
@@ -168,28 +169,30 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  background: #fff;
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(0,0,0,0.06);
   min-width: 300px;
-  padding: 8px 0;
-  margin-top: 5px;
-  border-radius: 4px;
+  padding: 10px 0;
+  margin-top: 0;
+  border-radius: var(--radius-md);
   z-index: 1000;
+  border-top: 3px solid var(--primary-green);
+  overflow: hidden;
 }
 
 .dropdown-item {
   display: block;
   padding: 12px 20px;
-  color: #000001;
+  color: #111;
   text-decoration: none;
-  transition: background-color 0.2s;
+  transition: background 0.2s var(--ease);
   font-size: 14px;
   white-space: nowrap;
 }
 
 .dropdown-item:hover {
-  background-color: #f5f5f5;
-  color: #000001;
+  background: rgba(183, 228, 0, 0.1);
+  color: #000;
 }
 
 .badge {
@@ -202,20 +205,23 @@
 }
 
 .quote-btn {
-  background-color: var(--primary-green);
+  background: var(--primary-green);
   color: var(--primary-black);
   border: none;
-  padding: 10px 20px;
-  font-weight: bold;
+  padding: 10px 22px;
+  font-weight: 700;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  border-radius: var(--radius-full);
+  transition: background 0.25s var(--ease), transform 0.2s var(--ease), box-shadow 0.25s var(--ease);
   font-size: 13px;
   white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(183, 228, 0, 0.35);
 }
 
 .quote-btn:hover {
-  background-color: #a0cc00;
+  background: var(--primary-green-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(183, 228, 0, 0.45);
 }
 
 .mobile-menu-btn {

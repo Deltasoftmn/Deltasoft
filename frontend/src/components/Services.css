@@ -1,6 +1,6 @@
 .services {
-  padding: 20px;
-  background: linear-gradient(180deg, #000001 0%, #1a1a1a 50%, #000001 100%);
+  padding: 28px 24px;
+  background: var(--primary-black);
   flex-shrink: 0;
 }
 
@@ -20,12 +20,12 @@
 }
 
 .service-card {
-  background-color: #1a1a1a;
-  border: 2px solid #333;
-  border-radius: 8px;
-  padding: 15px 8px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 12px;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -33,10 +33,10 @@
 }
 
 .service-card:hover {
-  border-color: var(--primary-green);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(183, 228, 0, 0.2);
-  background-color: #2a2a2a;
+  border-color: var(--border-strong);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+  background: #222;
 }
 
 .service-icon {

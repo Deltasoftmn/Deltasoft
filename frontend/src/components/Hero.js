@@ -183,22 +183,13 @@ const Hero = () => {
       </div>
       <div className="social-sidebar">
         <a
-          href="https://www.facebook.com/"
+          href="https://www.facebook.com/Deltasoftllc"
           className="social-icon facebook"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Facebook"
         >
           f
-        </a>
-        <a
-          href="https://www.linkedin.com/"
-          className="social-icon linkedin"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn"
-        >
-          in
         </a>
       </div>
     </section>

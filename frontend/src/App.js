@@ -8,6 +8,9 @@ import About from './components/About';
 import WhyUs from './components/WhyUs';
 import Works from './components/Works';
 import Contact from './components/Contact';
+import News from './components/News';
+import Uilchilgee from './components/Uilchilgee';
+import Delgets from './components/Delgets';
 import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 
@@ -41,6 +44,9 @@ function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/why-us" element={<WhyUs />} />
                   <Route path="/works" element={<Works />} />
+                  <Route path="/news" element={<News />} />
+                  <Route path="/uilchilgee" element={<Uilchilgee />} />
+                  <Route path="/delgets" element={<Delgets />} />
                   <Route path="/contact" element={<Contact />} />
                 </Routes>
                 <Footer />

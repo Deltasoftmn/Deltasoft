@@ -123,5 +123,5 @@ The frontend uses React with Create React App. The backend uses Express with Mon
 
 ## License
 
-Copyright © 2024 Deltasoft. All rights reserved.
+Copyright © 2026 Deltasoft. All rights reserved.
 

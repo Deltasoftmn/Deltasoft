@@ -1,34 +1,30 @@
 .App {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.App > *:not(.home-page) {
-  flex: 1;
-}
-
-@media (max-width: 768px) {
-  .App {
-    overflow: visible;
-  }
-
-  .App > *:not(.home-page) {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* Color Variables */
+/* Design tokens */
 :root {
   --primary-green: #b7e400;
-  --primary-black: #000001;
+  --primary-green-hover: #c4ef0a;
+  --primary-green-dim: rgba(183, 228, 0, 0.15);
+  --primary-black: #0a0a0a;
   --primary-white: #ffffff;
-}
-
-html, body {
-  height: 100%;
-  overflow: hidden;
+  --surface: #141414;
+  --surface-elevated: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(183, 228, 0, 0.35);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 24px rgba(183, 228, 0, 0.2);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
 }
 

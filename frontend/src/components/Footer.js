@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
@@ -6,22 +7,18 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-left">
-          <a href="#about">About Us</a>
+          <Link to="/about">Бидний тухай</Link>
           <span className="separator">|</span>
-          <a href="#sustainability">Sustainability</a>
+          <a href="#locations">Оффисын байршил</a>
           <span className="separator">|</span>
-          <a href="#locations">Office Locations</a>
+          <a href="#news">Мэдээ, хэвлэл</a>
           <span className="separator">|</span>
-          <a href="#news">News & Press</a>
+          <Link to="/contact">Холбоо барих</Link>
           <span className="separator">|</span>
-          <a href="#careers">Careers</a>
-          <span className="separator">|</span>
-          <a href="#contact">Contact Us</a>
-          <span className="separator">|</span>
-          <a href="#logo">Logo</a>
+          <a href="#logo">Лого</a>
         </div>
         <div className="footer-right">
-          <p>© 2024 Deltasoft. All rights reserved.</p>
+          <p>© 2026 Deltasoft. Бүх эрх хуулиар хамгаалагдсан.</p>
         </div>
       </div>
     </footer>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 import QuoteModal from './QuoteModal';
@@ -7,7 +7,17 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const dropdownCloseTimeout = useRef(null);
   const location = useLocation();
+
+  const clearDropdownCloseTimeout = () => {
+    if (dropdownCloseTimeout.current) {
+      clearTimeout(dropdownCloseTimeout.current);
+      dropdownCloseTimeout.current = null;
+    }
+  };
+
+  useEffect(() => () => clearDropdownCloseTimeout(), []);
 
   return (
     <header className="header">
@@ -30,10 +40,18 @@ const Header = () => {
           </Link>
           <div className="nav-links">
             <Link to="/about" className={`nav-item ${location.pathname === '/about' ? 'active' : ''}`}>Бидний тухай</Link>
-            <div 
+            <div
               className="dropdown"
-              onMouseEnter={() => setIsServicesDropdownOpen(true)}
-              onMouseLeave={() => setIsServicesDropdownOpen(false)}
+              onMouseEnter={() => {
+                clearDropdownCloseTimeout();
+                setIsServicesDropdownOpen(true);
+              }}
+              onMouseLeave={() => {
+                dropdownCloseTimeout.current = setTimeout(() => {
+                  setIsServicesDropdownOpen(false);
+                  dropdownCloseTimeout.current = null;
+                }, 250);
+              }}
             >
               <div className={`nav-item dropdown-trigger ${isServicesDropdownOpen ? 'active' : ''}`}>
                 Манай үйлчилгээ
@@ -41,7 +59,7 @@ const Header = () => {
               </div>
               {isServicesDropdownOpen && (
                 <div className="dropdown-menu">
-                  <Link to="/" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
+                  <Link to="/uilchilgee" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
                     Гэрээт ІТ үйлчилгээ
                   </Link>
                   <Link to="/" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
@@ -56,12 +74,13 @@ const Header = () => {
                   <Link to="/" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
                     Social хуудас болон контент хөгжүүлэлт
                   </Link>
-                  <Link to="/" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
+                  <Link to="/delgets" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
                     Дэлгэцийн реклам
                   </Link>
                 </div>
               )}
             </div>
+            <Link to="/news" className={`nav-item ${location.pathname === '/news' ? 'active' : ''}`}>Мэдээ</Link>
             <Link to="/contact" className={`nav-item ${location.pathname === '/contact' ? 'active' : ''}`}>Холбоо барих</Link>
             <button className="quote-btn" onClick={() => setIsQuoteOpen(true)}>Үнийн санал авах</button>
           </div>
@@ -83,15 +102,16 @@ const Header = () => {
                 </div>
                 {isServicesDropdownOpen && (
                   <div className="mobile-dropdown-menu">
-                    <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Гэрээт ІТ үйлчилгээ</Link>
+                    <Link to="/uilchilgee" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Гэрээт ІТ үйлчилгээ</Link>
                     <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>МАБ-ын Outsourcing үйлчилгээ</Link>
                     <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Вэб сайт, Програм хангамж хөгжүүлэлт</Link>
                     <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Тоног төхөөрөмж, худалдаа, засвар үйлчилгээ</Link>
                     <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Social хуудас болон контент хөгжүүлэлт</Link>
-                    <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Дэлгэцийн реклам</Link>
+                    <Link to="/delgets" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Дэлгэцийн реклам</Link>
                   </div>
                 )}
               </div>
+              <Link to="/news" onClick={() => setIsMenuOpen(false)}>Мэдээ</Link>
               <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Холбоо барих</Link>
               <button
                 type="button"

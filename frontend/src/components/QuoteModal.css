@@ -1,7 +1,9 @@
 .quote-modal-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(15, 23, 42, 0.85);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,11 +13,11 @@
 .quote-modal {
   width: 95%;
   max-width: 640px;
-  background-color: #020617;
-  border-radius: 16px;
-  padding: 24px 26px 22px;
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
-  border: 1px solid #1f2937;
+  background: var(--surface-elevated);
+  border-radius: var(--radius-lg);
+  padding: 28px 30px 26px;
+  box-shadow: var(--shadow-md), 0 0 0 1px var(--border);
+  border: 1px solid var(--border);
   color: #e5e7eb;
 }
 
@@ -75,27 +77,27 @@
 .quote-form-group input,
 .quote-form-group select,
 .quote-form-group textarea {
-  background-color: #000000;
-  border-radius: 8px;
-  border: 1px solid #374151;
-  padding: 9px 11px;
-  color: #f9fafb;
+  background: var(--primary-black);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  padding: 11px 14px;
+  color: #fff;
   font-size: 14px;
+  font-family: inherit;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
 .quote-form-group input::placeholder,
 .quote-form-group textarea::placeholder {
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .quote-form-group input:focus,
 .quote-form-group select:focus,
 .quote-form-group textarea:focus {
-  border-color: #4b5563;
-  box-shadow: 0 0 0 1px #4b5563;
-  background-color: #030712;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 2px var(--primary-green-dim);
 }
 
 .quote-status {
@@ -123,30 +125,32 @@
 
 .quote-cancel-btn,
 .quote-submit-btn {
-  border-radius: 999px;
-  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  padding: 10px 20px;
   font-size: 13px;
   font-weight: 600;
   border: none;
   cursor: pointer;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
 .quote-cancel-btn {
-  background-color: #111827;
+  background: rgba(255, 255, 255, 0.08);
   color: #e5e7eb;
 }
 
 .quote-submit-btn {
-  background-color: #2563eb;
-  color: #f9fafb;
+  background: var(--primary-green);
+  color: var(--primary-black);
 }
 
 .quote-submit-btn:hover {
-  background-color: #1d4ed8;
+  background: var(--primary-green-hover);
+  transform: translateY(-1px);
 }
 
 .quote-cancel-btn:hover {
-  background-color: #1f2937;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 @media (max-width: 640px) {
