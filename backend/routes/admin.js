@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Admin = require('../models/Admin');
-const Contact = require('../models/Contact');
+const {
+  findAdminByUsername,
+  comparePassword,
+} = require('../models/adminSupabase');
+const { getAllContacts } = require('../models/contactSupabase');
 const multer = require('multer');
 const XLSX = require('xlsx');
 const puppeteer = require('puppeteer');
@@ -19,13 +22,13 @@ router.post('/login', async (req, res) => {
     }
 
     // Find admin by username
-    const admin = await Admin.findOne({ username });
+    const admin = await findAdminByUsername(username);
     if (!admin) {
       return res.status(401).json({ message: 'Invalid username or password' });
     }
 
     // Compare password
-    const isPasswordValid = await admin.comparePassword(password);
+    const isPasswordValid = await comparePassword(admin.password, password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid username or password' });
     }
@@ -44,8 +47,9 @@ router.post('/login', async (req, res) => {
 // Get statistics
 router.get('/statistics', async (req, res) => {
   try {
-    const totalContacts = await Contact.countDocuments();
-    const pendingQuotes = await Contact.countDocuments({ status: 'new' });
+    const contacts = await getAllContacts();
+    const totalContacts = contacts.length;
+    const pendingQuotes = contacts.filter(c => c.status === 'new').length;
     
     // In production, you would track visits in a separate collection
     // For now, return demo data

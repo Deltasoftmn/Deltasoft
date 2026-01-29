@@ -1,35 +1,41 @@
 const express = require('express');
 const router = express.Router();
-const Project = require('../models/Project');
+const {
+  getAllProjects,
+  getFeaturedProjects,
+  createProject,
+} = require('../models/projectSupabase');
 
 // Get all projects
 router.get('/', async (req, res) => {
   try {
-    const projects = await Project.find().sort({ createdAt: -1 });
+    const projects = await getAllProjects();
     res.json(projects);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error fetching projects:', error);
+    res.status(500).json({ message: 'Failed to fetch projects' });
   }
 });
 
 // Get featured projects
 router.get('/featured', async (req, res) => {
   try {
-    const projects = await Project.find({ featured: true }).sort({ createdAt: -1 });
+    const projects = await getFeaturedProjects();
     res.json(projects);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error fetching featured projects:', error);
+    res.status(500).json({ message: 'Failed to fetch featured projects' });
   }
 });
 
 // Create a project
 router.post('/', async (req, res) => {
   try {
-    const project = new Project(req.body);
-    await project.save();
+    const project = await createProject(req.body);
     res.status(201).json(project);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error('Error creating project:', error);
+    res.status(400).json({ message: 'Failed to create project' });
   }
 });
 

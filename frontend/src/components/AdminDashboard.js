@@ -4,6 +4,7 @@ import WebStatistics from './admin/WebStatistics';
 import CarouselControl from './admin/CarouselControl';
 import QuoteRequests from './admin/QuoteRequests';
 import ExcelToPdf from './admin/ExcelToPdf';
+import NewsManagement from './admin/NewsManagement';
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('statistics');
@@ -45,6 +46,12 @@ const AdminDashboard = () => {
           >
             📄 Excel → PDF
           </button>
+          <button
+            className={`admin-nav-item ${activeSection === 'news' ? 'active' : ''}`}
+            onClick={() => setActiveSection('news')}
+          >
+            📰 Мэдээний Удирдлага
+          </button>
         </nav>
         <button className="admin-logout-btn" onClick={handleLogout}>
           Гарах
@@ -55,6 +62,7 @@ const AdminDashboard = () => {
         {activeSection === 'carousel' && <CarouselControl />}
         {activeSection === 'quotes' && <QuoteRequests />}
         {activeSection === 'excel' && <ExcelToPdf />}
+        {activeSection === 'news' && <NewsManagement />}
       </div>
     </div>
   );

@@ -1,25 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const Service = require('../models/Service');
+const { getAllServices, createService } = require('../models/serviceSupabase');
 
 // Get all services
 router.get('/', async (req, res) => {
   try {
-    const services = await Service.find();
+    const services = await getAllServices();
     res.json(services);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error fetching services:', error);
+    res.status(500).json({ message: 'Failed to fetch services' });
   }
 });
 
 // Create a service
 router.post('/', async (req, res) => {
   try {
-    const service = new Service(req.body);
-    await service.save();
+    const service = await createService(req.body);
     res.status(201).json(service);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error('Error creating service:', error);
+    res.status(400).json({ message: 'Failed to create service' });
   }
 });
 
