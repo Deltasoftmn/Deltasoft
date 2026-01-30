@@ -1,7 +1,8 @@
 .services {
-  padding: 28px 24px;
+  padding: clamp(12px, 2vh, 28px) clamp(12px, 2vw, 24px);
   background: var(--primary-black);
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-height: 0;
 }
 
 .services-container {
@@ -16,7 +17,7 @@
 .services-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
+  gap: clamp(8px, 1.2vh, 15px);
 }
 
 .service-card {
@@ -25,7 +26,7 @@
   background: var(--surface-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 20px 12px;
+  padding: clamp(10px, 1.5vh, 20px) clamp(8px, 1vw, 12px);
   text-align: center;
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
   cursor: pointer;
@@ -56,8 +57,8 @@
 }
 
 .service-icon {
-  font-size: 36px;
-  margin-bottom: 8px;
+  font-size: clamp(24px, 3vw, 36px);
+  margin-bottom: clamp(4px, 0.6vh, 8px);
   color: var(--primary-green);
   transition: transform 0.35s var(--ease);
 }
@@ -67,21 +68,21 @@
 }
 
 .service-title {
-  font-size: 12px;
+  font-size: clamp(10px, 1.2vw, 12px);
   font-weight: bold;
   color: var(--primary-white);
-  margin-bottom: 5px;
+  margin-bottom: clamp(2px, 0.4vh, 5px);
   line-height: 1.4;
-  min-height: 32px;
+  min-height: clamp(24px, 3vh, 32px);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .service-description {
-  font-size: 11px;
+  font-size: clamp(9px, 1vw, 11px);
   color: #aaa;
-  margin-bottom: 8px;
+  margin-bottom: clamp(4px, 0.6vh, 8px);
   line-height: 1.4;
 }
 

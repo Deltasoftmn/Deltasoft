@@ -60,20 +60,22 @@ function AppContent() {
         <Route
           path="/*"
           element={
-            <>
+            <div className="main-layout">
               <Header />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/why-us" element={<WhyUs />} />
-                <Route path="/works" element={<Works />} />
-                <Route path="/news" element={<News />} />
-                <Route path="/uilchilgee" element={<Uilchilgee />} />
-                <Route path="/delgets" element={<Delgets />} />
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
+              <div className="main-content">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/why-us" element={<WhyUs />} />
+                  <Route path="/works" element={<Works />} />
+                  <Route path="/news" element={<News />} />
+                  <Route path="/uilchilgee" element={<Uilchilgee />} />
+                  <Route path="/delgets" element={<Delgets />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </div>
               <Footer />
-            </>
+            </div>
           }
         />
       </Routes>

@@ -87,7 +87,7 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, rgba(0, 0, 1, 0.85) 0%, rgba(26, 26, 26, 0.85) 50%, rgba(10, 10, 10, 0.85) 100%);
-  padding: 40px 20px;
+  padding: clamp(12px, 2vh, 40px) clamp(12px, 1.5vw, 20px);
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -132,7 +132,7 @@
 }
 
 .hero-title {
-  font-size: 32px;
+  font-size: clamp(18px, 3vw, 32px);
   font-weight: bold;
   color: var(--primary-white);
   line-height: 1.2;
@@ -145,7 +145,7 @@
 }
 
 .subsection-title {
-  font-size: 24px;
+  font-size: clamp(14px, 2.2vw, 24px);
   font-weight: bold;
   color: var(--primary-white);
 }
@@ -159,10 +159,10 @@
 .feature-card {
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
-  padding: 14px 20px;
+  padding: clamp(8px, 1.2vh, 14px) clamp(10px, 1.5vw, 20px);
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: clamp(8px, 1vw, 14px);
   background: rgba(20, 20, 20, 0.85);
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
   cursor: pointer;
@@ -183,7 +183,7 @@
   margin: 0;
   font-weight: 500;
   color: var(--primary-white);
-  font-size: 12px;
+  font-size: clamp(10px, 1.2vw, 12px);
 }
 
 .bonus-item {
@@ -229,8 +229,8 @@
   width: 100%;
   max-width: 450px;
   height: auto;
-  min-height: 350px;
-  margin: 10px auto;
+  min-height: clamp(120px, 25vh, 350px);
+  margin: clamp(4px, 1vh, 10px) auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -242,7 +242,7 @@
 .hero-product-image img {
   width: 100%;
   height: auto;
-  max-height: 500px;
+  max-height: min(40vh, 500px);
   object-fit: contain;
   object-position: center;
   border-radius: 12px;
@@ -289,7 +289,8 @@
   justify-content: center;
   gap: 10px;
   margin-top: auto;
-  padding: 15px 0;
+  padding: clamp(6px, 1.5vh, 15px) 0;
+  flex-shrink: 0;
   z-index: 150;
   position: relative;
 }
@@ -433,22 +434,22 @@
 @media (max-width: 1024px) {
   .hero-content {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: clamp(10px, 2vh, 20px);
     padding: 0 15px;
   }
   
   .hero-title {
-    font-size: 24px;
+    font-size: clamp(20px, 3vw, 24px);
   }
   
   .hero-product-image {
     max-width: 100%;
     width: 100%;
-    min-height: 250px;
+    min-height: min(180px, 22vh);
   }
 
   .hero-product-image img {
-    max-height: 400px;
+    max-height: min(35vh, 400px);
   }
   
   .carousel-arrow {
@@ -473,31 +474,31 @@
 @media (max-width: 768px) {
   .hero-content {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: clamp(8px, 1.5vh, 20px);
   }
 
   .hero-slide-overlay {
-    padding: 15px;
+    padding: clamp(8px, 1.5vh, 15px);
   }
   
   .hero-title {
-    font-size: 20px;
+    font-size: clamp(16px, 4vw, 20px);
     text-align: center;
   }
   
   .subsection-title {
-    font-size: 16px;
+    font-size: clamp(12px, 3vw, 16px);
     text-align: center;
   }
   
   .hero-product-image {
     max-width: 100%;
     width: 100%;
-    min-height: 200px;
+    min-height: min(120px, 18vh);
   }
 
   .hero-product-image img {
-    max-height: 300px;
+    max-height: min(28vh, 300px);
   }
   
   .feature-cards {

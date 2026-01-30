@@ -6,6 +6,22 @@
   overflow-y: auto;
 }
 
+/* Main layout: header + content + footer = 100vh, no scroll on home */
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: auto;
+}
+
 /* Design tokens */
 :root {
   --primary-green: #b7e400;

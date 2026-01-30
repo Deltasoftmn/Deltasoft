@@ -8,20 +8,21 @@ const INTRO_PARAGRAPHS = [
 ];
 
 const TEAM_DETAILED = [
-  { name: 'Х.ӨНӨРБАЯН', title: 'Гүйцэтгэх захирал', profession: 'Сүлжээний Дэд Бүтцийн инженер', jobs: ['2020-оноос: "Дельтасофт" ХХК', '2018-2020: "Таванбогд" Групп', '2012-2018: "Кевико" XXK'], years: '13+' },
-  { name: 'С.НАНДИНХҮҮ', title: 'Ерөнхий инженер', profession: 'ІТ инженер', jobs: ['2023-оноос: "Дельтасофт" ХХК', '2019-2023: NUBIA /Шинэ нисэх буудал/', '2010-2019: Чингис хаан ОУНБ', '2005-2007: USI программын компани'], years: '20+' },
-  { name: 'Ц.БАЯРЖАРГАЛ', title: 'Ерөнхий менежер', profession: 'Сүлжээний Дэд Бүтцийн инженер', jobs: ['2024-оноос: "Дельтасофт" ХХК', '2023-2024: Хаанбанк', '2022-2023: "Монполимет" Групп', '2018-2021: "Таван Богд" Групп', '2014-2018: "Бон интернейшнл"'], years: '11+' },
-  { name: 'О.ГАЛЧ', title: 'Системийн администратор', profession: 'Системийн инженер', jobs: ['2022-оноос: "Дельтасофт" ХХК', '2018-2022: "Таван Богд" Групп', '2014-2018: "Алтан Жолоо" Групп', '2007-2014: "Монос Групп"'], years: '18+' },
-  { name: 'Н.ХУЛАН', title: 'Үйл ажиллагаа хариуцсан менежер', profession: 'Борлуулалтын менежер, ІТ инженер', jobs: ['2025-оноос: "Дельтасофт" ХХК', '2025/02-07: "Могул сервис" ХХК', '2022-2025: Caffe Bene Mongolia'], years: '3+' },
+  { name: 'Х.ӨНӨРБАЯН', title: 'Гүйцэтгэх захирал', image: 'Unurbayan.jpg' },
+  { name: 'С.НАНДИНХҮҮ', title: 'Ерөнхий инженер', image: 'Nandinhuu1.jpg' },
+  { name: 'Ц.БАЯРЖАРГАЛ', title: 'Ерөнхий менежер', image: 'bayraa.jpg' },
+  { name: 'О.ГАЛЧ', title: 'Системийн администратор' },
+  { name: 'Н.ХУЛАН', title: 'Үйл ажиллагаа хариуцсан менежер', image: 'Khulan.jpg' },
 ];
 
 const TEAM_COMPACT = [
-  { name: 'У.АМГАЛАНБААТАР', title: 'Мэдээллийн аюулгүй байдлын инженер', years: '9+' },
-  { name: 'Х.АМАРСАНАА', title: 'ІТ инженер', years: '3+' },
-  { name: 'Д.ИДЭРЗААН', title: 'ІТ инженер', years: '4+' },
-  { name: 'Д.ЭРДЭНЭХИШИГ', title: 'ІТ, камер хариуцсан инженер', years: '3+' },
-  { name: 'Н.ДАГВАДОРЖ', title: 'IT, камер хариуцсан инженер', years: '2+' },
-  { name: 'М.БИЛГҮҮНЗАЯА', title: 'Хөгжүүлэгч', years: '1+' },
+  { name: 'У.АМГАЛАНБААТАР', title: 'Мэдээллийн аюулгүй байдлын инженер' },
+  { name: 'Ө.ЭНХЖИН', title: 'Мэдээллийн аюулгүй байдлын мэргэжилтэн' },
+  { name: 'М.БИЛГҮҮНЗАЯА', title: 'Хөгжүүлэгч', image: 'Bilguunzaya.jfif' },
+  { name: 'Д.ЭРДЭНЭХИШИГ', title: 'ІТ, камер хариуцсан инженер', image: 'erka.jpg' },
+  { name: 'Н.ДАГВАДОРЖ', title: 'IT, камер хариуцсан инженер', image: 'Davga.jpg' },
+  { name: 'Х.АМАРСАНАА', title: 'ІТ инженер', image: 'Amraa.jpg' },
+  { name: 'Д.ИДЭРЗААН', title: 'ІТ инженер' },
 ];
 
 const About = () => {
@@ -44,17 +45,14 @@ const About = () => {
           <div className="team-detailed-grid">
             {TEAM_DETAILED.map((m, i) => (
               <div key={i} className="team-card team-card-detailed">
-                <div className="team-photo" />
+                <div className="team-photo">
+                  {m.image ? (
+                    <img src={`${process.env.PUBLIC_URL}/${m.image}`} alt={m.name} />
+                  ) : null}
+                </div>
                 <div className="team-info">
                   <h3 className="team-name">{m.name}</h3>
                   <p className="team-title">{m.title}</p>
-                  <p className="team-profession">{m.profession}</p>
-                  <ul className="team-jobs">
-                    {m.jobs.map((j, jj) => (
-                      <li key={jj}>{j}</li>
-                    ))}
-                  </ul>
-                  <p className="team-years">{m.years} жилийн ажлын туршлагатай</p>
                 </div>
               </div>
             ))}
@@ -63,11 +61,14 @@ const About = () => {
           <div className="team-compact-grid">
             {TEAM_COMPACT.map((m, i) => (
               <div key={i} className="team-card team-card-compact">
-                <div className="team-photo team-photo-compact" />
+                <div className="team-photo team-photo-compact">
+                  {m.image ? (
+                    <img src={`${process.env.PUBLIC_URL}/${m.image}`} alt={m.name} />
+                  ) : null}
+                </div>
                 <h3 className="team-name">{m.name}</h3>
                 <div className="team-title-line" />
                 <p className="team-title">{m.title}</p>
-                <p className="team-years">{m.years} жилийн ажлын туршлагатай</p>
               </div>
             ))}
           </div>
