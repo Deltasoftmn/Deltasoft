@@ -12,7 +12,6 @@ import Contact from './components/Contact';
 import News from './components/News';
 import Uilchilgee from './components/Uilchilgee';
 import Delgets from './components/Delgets';
-import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 import AdminRedirect from './components/AdminRedirect';
 
