@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiUrl } from '../api';
 import './QuoteModal.css';
 
 const QuoteModal = ({ onClose }) => {
@@ -29,25 +30,27 @@ const QuoteModal = ({ onClose }) => {
 
     setIsSubmitting(true);
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(apiUrl('/api/contacts'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.service
-            ? `[Үнийн санал - ${formData.service}] ${formData.message}`
-            : `[Үнийн санал] ${formData.message}`,
+          data: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone || '',
+            message: formData.service
+              ? `[Үнийн санал - ${formData.service}] ${formData.message}`
+              : `[Үнийн санал] ${formData.message}`,
+          },
         }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.message || 'Failed to send quote');
+        throw new Error(data.error?.message || 'Failed to send quote');
       }
 
       setStatus({ type: 'success', message: 'Үнийн санал амжилттай илгээгдлээ.' });

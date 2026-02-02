@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../api';
 import './News.css';
 
 const News = () => {
@@ -11,16 +12,25 @@ const News = () => {
 
   const fetchNews = async () => {
     try {
-      const response = await fetch('/api/news');
+      const response = await fetch(apiUrl('/api/news?populate=image&sort=createdAt:desc'));
       if (!response.ok) {
         throw new Error('Failed to fetch news');
       }
-      const data = await response.json();
-      // Ensure data is always an array
-      setNews(Array.isArray(data) ? data : []);
+      const json = await response.json();
+      const raw = json.data;
+      const list = Array.isArray(raw)
+        ? raw.map((d) => ({
+            id: d.id,
+            title: d.attributes?.title || '',
+            content: d.attributes?.content || '',
+            created_at: d.attributes?.createdAt || d.attributes?.publishedAt,
+            image: d.attributes?.image?.data?.attributes?.url || d.attributes?.image?.data?.attributes?.formats?.medium?.url || null,
+          }))
+        : [];
+      setNews(list);
     } catch (error) {
       console.error('Error fetching news:', error);
-      setNews([]); // Set to empty array on error
+      setNews([]);
     } finally {
       setLoading(false);
     }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiUrl } from '../api';
 import './Contact.css';
 
 const Contact = () => {
@@ -29,18 +30,20 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(apiUrl('/api/contacts'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.subject
-            ? `${formData.subject}\n\n${formData.message}`
-            : formData.message,
+          data: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone || '',
+            message: formData.subject
+              ? `${formData.subject}\n\n${formData.message}`
+              : formData.message,
+          },
         }),
       });
 

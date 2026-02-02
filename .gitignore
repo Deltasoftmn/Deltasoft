@@ -155,9 +155,14 @@ ehthumbs.db
 Thumbs.db
 Desktop.ini
 
-# MongoDB
+# Strapi
+backend/.tmp/
+backend/.strapi/
+backend/build/
+backend/public/uploads/
+
+# Logs
 *.log
-mongodb-data/
 
 # Puppeteer
 .local-chromium/

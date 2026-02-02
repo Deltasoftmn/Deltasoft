@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,14 +11,6 @@ import Contact from './components/Contact';
 import News from './components/News';
 import Uilchilgee from './components/Uilchilgee';
 import Delgets from './components/Delgets';
-import AdminLogin from './components/AdminLogin';
-import AdminDashboard from './components/AdminDashboard';
-
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
-  const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
-  return isLoggedIn ? children : <Navigate to="/admin" replace />;
-};
 
 function AppContent() {
   const location = useLocation();
@@ -48,15 +40,6 @@ function AppContent() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/admin" element={<AdminLogin />} />
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="/*"
           element={
@@ -92,4 +75,3 @@ function App() {
 }
 
 export default App;
-
