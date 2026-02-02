@@ -8,20 +8,20 @@ const INTRO_PARAGRAPHS = [
 ];
 
 const TEAM_DETAILED = [
-  { name: 'Х.ӨНӨРБАЯН', title: 'Гүйцэтгэх захирал', image: 'Unurbayan.jpg' },
-  { name: 'С.НАНДИНХҮҮ', title: 'Ерөнхий инженер', image: 'Nandinhuu1.jpg' },
-  { name: 'Ц.БАЯРЖАРГАЛ', title: 'Ерөнхий менежер', image: 'bayraa.jpg' },
+  { name: 'Х.ӨНӨРБАЯН', title: 'Гүйцэтгэх захирал', image: '' },
+  { name: 'С.НАНДИНХҮҮ', title: 'Ерөнхий инженер', image: '' },
+  { name: 'Ц.БАЯРЖАРГАЛ', title: 'Ерөнхий менежер', image: '' },
   { name: 'О.ГАЛЧ', title: 'Системийн администратор' },
-  { name: 'Н.ХУЛАН', title: 'Үйл ажиллагаа хариуцсан менежер', image: 'Khulan.jpg' },
+  { name: 'Н.ХУЛАН', title: 'Үйл ажиллагаа хариуцсан менежер', image: '' },
 ];
 
 const TEAM_COMPACT = [
   { name: 'У.АМГАЛАНБААТАР', title: 'Мэдээллийн аюулгүй байдлын инженер' },
   { name: 'Ө.ЭНХЖИН', title: 'Мэдээллийн аюулгүй байдлын мэргэжилтэн' },
-  { name: 'М.БИЛГҮҮНЗАЯА', title: 'Хөгжүүлэгч', image: 'Bilguunzaya.jfif' },
-  { name: 'Д.ЭРДЭНЭХИШИГ', title: 'ІТ, камер хариуцсан инженер', image: 'erka.jpg' },
-  { name: 'Н.ДАГВАДОРЖ', title: 'IT, камер хариуцсан инженер', image: 'Davga.jpg' },
-  { name: 'Х.АМАРСАНАА', title: 'ІТ инженер', image: 'Amraa.jpg' },
+  { name: 'М.БИЛГҮҮНЗАЯА', title: 'Хөгжүүлэгч', image: '' },
+  { name: 'Д.ЭРДЭНЭХИШИГ', title: 'ІТ, камер хариуцсан инженер', image: '' },
+  { name: 'Н.ДАГВАДОРЖ', title: 'IT, камер хариуцсан инженер', image: '' },
+  { name: 'Х.АМАРСАНАА', title: 'ІТ инженер', image: '' },
   { name: 'Д.ИДЭРЗААН', title: 'ІТ инженер' },
 ];
 
