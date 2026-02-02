@@ -13,12 +13,17 @@ const TEAM_DETAILED = [
   { name: 'Ц.БАЯРЖАРГАЛ', title: 'Ерөнхий менежер', image: '' },
   { name: 'О.ГАЛЧ', title: 'Системийн администратор' },
   { name: 'Н.ХУЛАН', title: 'Үйл ажиллагаа хариуцсан менежер', image: '' },
+  { name: 'Б.МӨНХЦЭЦЭГ', title: 'Маркетинг менежер', image: '' },
 ];
 
 const TEAM_COMPACT = [
-  { name: 'У.АМГАЛАНБААТАР', title: 'Мэдээллийн аюулгүй байдлын инженер' },
-  { name: 'Ө.ЭНХЖИН', title: 'Мэдээллийн аюулгүй байдлын мэргэжилтэн' },
+  { name: 'ЖАРГАЛСАЙХАН', title: 'Ахлах Хөгжүүлэгч' },
   { name: 'М.БИЛГҮҮНЗАЯА', title: 'Хөгжүүлэгч', image: '' },
+  { name: 'Ө.ЭНХЖИН', title: 'Мэдээллийн аюулгүй байдлын мэргэжилтэн' },
+  { name: 'У.АМГАЛАНБААТАР', title: 'Мэдээллийн аюулгүй байдлын инженер' },
+];
+
+const TEAM_ISOLATED = [
   { name: 'Д.ЭРДЭНЭХИШИГ', title: 'ІТ, камер хариуцсан инженер', image: '' },
   { name: 'Н.ДАГВАДОРЖ', title: 'IT, камер хариуцсан инженер', image: '' },
   { name: 'Х.АМАРСАНАА', title: 'ІТ инженер', image: '' },
@@ -60,6 +65,21 @@ const About = () => {
 
           <div className="team-compact-grid">
             {TEAM_COMPACT.map((m, i) => (
+              <div key={i} className="team-card team-card-compact">
+                <div className="team-photo team-photo-compact">
+                  {m.image ? (
+                    <img src={`${process.env.PUBLIC_URL}/${m.image}`} alt={m.name} />
+                  ) : null}
+                </div>
+                <h3 className="team-name">{m.name}</h3>
+                <div className="team-title-line" />
+                <p className="team-title">{m.title}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="team-isolated-grid">
+            {TEAM_ISOLATED.map((m, i) => (
               <div key={i} className="team-card team-card-compact">
                 <div className="team-photo team-photo-compact">
                   {m.image ? (
