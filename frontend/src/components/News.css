@@ -89,6 +89,12 @@
 .news-card-date {
   font-size: 14px;
   color: #666;
+  margin: 0 0 8px 0;
+}
+
+.news-card-author {
+  font-size: 13px;
+  color: var(--primary-green);
   margin: 0 0 15px 0;
 }
 

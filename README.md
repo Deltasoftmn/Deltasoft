@@ -46,6 +46,15 @@ On first run, Strapi will prompt you to create an admin user. Use that to log in
    - **Service**: `find`
    - **Project**: `find`
 
+4. **Website admin (/admin)** – To use the site’s own admin at **yoursite.com/admin** (news & contacts):
+   - In Strapi Admin go to **Settings → Users & Permissions → Roles**.
+   - Create a role (e.g. **Editor**) or edit **Authenticated** and enable:
+     - **News**: `find`, `findOne`, `create`, `update`, `delete`
+     - **Contact**: `find`, `findOne`, `update`, `delete`
+     - **Upload**: `upload` (required so the admin page can attach images to news; if you get 403 when posting news with an image, enable this)
+   - Then go to **Content-Manager → User** (under Users & Permissions) and **Create new entry**: set email and password, assign the role above.
+   - On the website, open **/admin**, log in with that email and password. You can then add/edit news (saved in Strapi) and manage contacts; the public site fetches that data from Strapi and displays it.
+
 ### Running the Application
 
 Run both Strapi and frontend:

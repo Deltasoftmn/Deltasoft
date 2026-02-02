@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { apiUrl } from '../api';
+import { apiUrl, STRAPI_NEWS_API } from '../api';
 import './News.css';
 
 const News = () => {
@@ -12,20 +12,31 @@ const News = () => {
 
   const fetchNews = async () => {
     try {
-      const response = await fetch(apiUrl('/api/news?populate=image&sort=createdAt:desc'));
+      let response = await fetch(apiUrl(`/api/${STRAPI_NEWS_API}?populate=image&sort=createdAt:desc`));
+      if (response.status === 400) {
+        response = await fetch(apiUrl(`/api/${STRAPI_NEWS_API}?populate=image`));
+      }
       if (!response.ok) {
         throw new Error('Failed to fetch news');
       }
       const json = await response.json();
       const raw = json.data;
       const list = Array.isArray(raw)
-        ? raw.map((d) => ({
-            id: d.id,
-            title: d.attributes?.title || '',
-            content: d.attributes?.content || '',
-            created_at: d.attributes?.createdAt || d.attributes?.publishedAt,
-            image: d.attributes?.image?.data?.attributes?.url || d.attributes?.image?.data?.attributes?.formats?.medium?.url || null,
-          }))
+        ? raw.map((d) => {
+            const attrs = d.attributes || {};
+            const body = attrs.content ?? attrs.description ?? '';
+            const content = typeof body === 'string' ? body : (body?.root?.children?.map((c) => c.children?.map((t) => t.text).join('')).join('') || '');
+            const img = attrs.image?.data?.attributes;
+            const imageUrl = img?.url || img?.formats?.medium?.url || null;
+            return {
+              id: d.id,
+              title: attrs.title || '',
+              content,
+              author: attrs.author || '',
+              created_at: attrs.createdAt || attrs.publishedAt,
+              image: imageUrl ? (imageUrl.startsWith('http') ? imageUrl : apiUrl(imageUrl)) : null,
+            };
+          })
         : [];
       setNews(list);
     } catch (error) {
@@ -66,6 +77,7 @@ const News = () => {
                       day: 'numeric',
                     })}
                   </p>
+                  {newsItem.author && <p className="news-card-author">{newsItem.author}</p>}
                   <p className="news-card-text">{newsItem.content}</p>
                 </div>
               </article>

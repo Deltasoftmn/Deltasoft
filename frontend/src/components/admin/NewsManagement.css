@@ -1,0 +1,230 @@
+.news-management-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.news-management-header h1 {
+  font-size: 1.35rem;
+  color: var(--primary-white, #fff);
+  margin: 0;
+}
+
+.btn-add {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: var(--primary-black, #0a0a0a);
+  background: var(--primary-green, #b7e400);
+  border: none;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background: var(--primary-green-hover, #c4ef0a);
+}
+
+.news-management-error {
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  background: rgba(220, 53, 69, 0.15);
+  border: 1px solid rgba(220, 53, 69, 0.4);
+  border-radius: var(--radius-sm, 6px);
+  color: #f87171;
+  font-size: 0.875rem;
+}
+
+.news-form {
+  background: var(--surface-elevated, #1a1a1a);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 10px);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.news-form h2 {
+  font-size: 1.1rem;
+  margin: 0 0 1rem;
+  color: var(--primary-white, #fff);
+}
+
+.news-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.news-form label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 0.35rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.news-form input[type="text"],
+.news-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--primary-black, #0a0a0a);
+  color: var(--primary-white, #fff);
+  box-sizing: border-box;
+}
+
+.news-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.news-form .form-row-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .news-form .form-row-two {
+    grid-template-columns: 1fr;
+  }
+}
+
+.news-form .image-preview {
+  margin-top: 0.5rem;
+}
+
+.news-form .image-preview img {
+  max-width: 200px;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: var(--radius-sm, 6px);
+}
+
+.news-form .checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.news-form .form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.news-form .form-actions button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+}
+
+.news-form .form-actions button[type="submit"] {
+  background: var(--primary-green, #b7e400);
+  color: var(--primary-black, #0a0a0a);
+  border: none;
+}
+
+.news-form .form-actions button[type="button"] {
+  background: transparent;
+  color: rgba(255,255,255,0.8);
+  border: 1px solid var(--border);
+}
+
+.news-loading,
+.news-empty {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+}
+
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.news-item {
+  background: var(--surface-elevated, #1a1a1a);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 10px);
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.news-item-main {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.news-item-image {
+  flex-shrink: 0;
+  width: 100px;
+  height: 70px;
+  border-radius: var(--radius-sm, 6px);
+  overflow: hidden;
+  background: var(--primary-black);
+}
+
+.news-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-item-body {
+  min-width: 0;
+}
+
+.news-item-body h3 {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+  color: var(--primary-white, #fff);
+}
+
+.news-item-date {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.6);
+  margin: 0 0 0.35rem;
+}
+
+.news-item-content {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.news-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.news-item-actions button {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: rgba(255,255,255,0.9);
+}
+
+.news-item-actions .btn-publish:hover,
+.news-item-actions .btn-edit:hover {
+  border-color: var(--primary-green, #b7e400);
+  color: var(--primary-green, #b7e400);
+}
+
+.news-item-actions .btn-delete:hover {
+  border-color: #f87171;
+  color: #f87171;
+}

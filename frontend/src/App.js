@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { getStrapiJwt } from './api';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,6 +12,13 @@ import Contact from './components/Contact';
 import News from './components/News';
 import Uilchilgee from './components/Uilchilgee';
 import Delgets from './components/Delgets';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/AdminDashboard';
+import AdminRedirect from './components/AdminRedirect';
+
+function AdminGuard({ children }) {
+  return getStrapiJwt() ? children : <Navigate to="/admin" replace />;
+}
 
 function AppContent() {
   const location = useLocation();
@@ -40,6 +48,15 @@ function AppContent() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/admin" element={<AdminRedirect />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminGuard>
+              <AdminDashboard />
+            </AdminGuard>
+          }
+        />
         <Route
           path="/*"
           element={

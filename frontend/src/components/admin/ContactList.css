@@ -1,0 +1,118 @@
+.contact-list-header h1 {
+  font-size: 1.35rem;
+  color: var(--primary-white, #fff);
+  margin: 0 0 1rem;
+}
+
+.contact-list-error {
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  background: rgba(220, 53, 69, 0.15);
+  border: 1px solid rgba(220, 53, 69, 0.4);
+  border-radius: var(--radius-sm, 6px);
+  color: #f87171;
+  font-size: 0.875rem;
+}
+
+.contact-list-loading,
+.contact-list-empty {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+}
+
+.contact-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-item {
+  background: var(--surface-elevated, #1a1a1a);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 10px);
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.contact-item-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.contact-item-header strong {
+  display: block;
+  color: var(--primary-white, #fff);
+  font-size: 1rem;
+}
+
+.contact-email {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--primary-green, #b7e400);
+  margin-top: 0.2rem;
+}
+
+.contact-phone {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: 0.15rem;
+}
+
+.contact-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-date {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.contact-status-select {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--primary-black, #0a0a0a);
+  color: var(--primary-white, #fff);
+  cursor: pointer;
+}
+
+.btn-delete-small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 6px);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+}
+
+.btn-delete-small:hover {
+  border-color: #f87171;
+  color: #f87171;
+}
+
+.contact-message {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.85);
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
