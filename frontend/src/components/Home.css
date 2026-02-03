@@ -8,3 +8,11 @@
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .home-page {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+  }
+}
+

@@ -48,27 +48,40 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 5px 12px;
-    padding-bottom: max(5px, env(safe-area-inset-bottom, 0px) + 6px);
+    padding: 12px 16px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom, 0px) + 12px);
   }
 
   .footer-content {
     flex-direction: column;
     text-align: center;
-    gap: 4px;
+    gap: 8px;
   }
   
   .footer-left {
     justify-content: center;
     gap: 2px;
+    flex-wrap: wrap;
   }
 
   .footer-left a {
+    font-size: 12px;
+    padding: 8px 4px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .footer-right p {
     font-size: 11px;
+    line-height: 1.4;
   }
 
   .separator {
     margin: 0 2px;
+    align-self: center;
   }
 }
 

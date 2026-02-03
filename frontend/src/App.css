@@ -24,6 +24,22 @@
   z-index: 1;
 }
 
+/* Mobile: fixed header offset + allow scroll */
+@media (max-width: 768px) {
+  .main-layout {
+    min-height: 100vh;
+    min-height: 100dvh;
+    height: auto;
+    max-height: none;
+    overflow-x: hidden;
+  }
+
+  .main-content {
+    padding-top: 100px; /* space for fixed header (top-banner + main-nav) */
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Design tokens */
 :root {
   --primary-green: #b7e400;

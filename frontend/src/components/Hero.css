@@ -539,5 +539,15 @@
   .hero-image-container {
     margin-bottom: 20px;
   }
+
+  .hero-pagination {
+    padding: 12px 0;
+    gap: 8px;
+  }
+
+  .pagination-dot {
+    padding: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 

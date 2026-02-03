@@ -19,6 +19,20 @@ const Header = () => {
 
   useEffect(() => () => clearDropdownCloseTimeout(), []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+    };
+  }, [isMenuOpen]);
+
   return (
     <header className="header">
       {/* Top Banner */}
