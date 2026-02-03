@@ -88,7 +88,8 @@ In **Vercel → Project → Settings → Environment Variables**, add:
 
 | Name | Value | Notes |
 |------|--------|--------|
-| `REACT_APP_STRAPI_URL` | `https://admin.deltasoft.website` | Strapi API base (no trailing slash) |
+| `REACT_APP_STRAPI_URL` | `https://admin.deltasoft.website` | **Required.** Strapi API base (no trailing slash). Without this, News and other API calls fail on Vercel. |
+| `REACT_APP_STRAPI_NEWS_API` | `newss` | If your Strapi news content type uses `/api/newss`, set this. Otherwise omit (default: `news`). |
 | `REACT_APP_STRAPI_ADMIN_URL` | `https://admin.deltasoft.website/admin` | Optional; used for the "Админ" link in the footer |
 
 Redeploy the frontend after saving so the build picks up these values.

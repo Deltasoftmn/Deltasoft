@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { apiUrl, STRAPI_NEWS_API } from '../api';
+import { apiUrl, STRAPI_NEWS_API, STRAPI_URL } from '../api';
 import './News.css';
 
 /** Extract plain text from Strapi Description: string or blocks array [{ type, children: [{ text }] }] */
@@ -82,7 +82,12 @@ const News = () => {
       setNews(list);
     } catch (err) {
       console.error('Error fetching news:', err);
-      setError(err.message || 'Мэдээ татахад алдаа гарлаа.');
+      const isProduction = typeof window !== 'undefined' && !/localhost|127\.0\.0\.1/.test(window.location.hostname);
+      const needsStrapiUrl = !STRAPI_URL && isProduction;
+      const message = needsStrapiUrl
+        ? 'Мэдээ татахад алдаа гарлаа. Vercel дээр REACT_APP_STRAPI_URL тохируулна уу (Settings → Environment Variables).'
+        : (err.message || 'Мэдээ татахад алдаа гарлаа.');
+      setError(message);
       setNews([]);
     } finally {
       setLoading(false);
@@ -118,7 +123,11 @@ const News = () => {
       setArticle(item ? parseNewsItem(item) : null);
     } catch (err) {
       console.error('Error fetching article:', err);
-      setError(err.message || 'Мэдээ татахад алдаа гарлаа.');
+      const isProduction = typeof window !== 'undefined' && !/localhost|127\.0\.0\.1/.test(window.location.hostname);
+      const needsStrapiUrl = !STRAPI_URL && isProduction;
+      setError(needsStrapiUrl
+        ? 'Мэдээ татахад алдаа гарлаа. Vercel дээр REACT_APP_STRAPI_URL тохируулна уу.'
+        : (err.message || 'Мэдээ татахад алдаа гарлаа.'));
     } finally {
       setLoading(false);
     }
