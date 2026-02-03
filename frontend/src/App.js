@@ -11,6 +11,7 @@ import Works from './components/Works';
 import Contact from './components/Contact';
 import News from './components/News';
 import Uilchilgee from './components/Uilchilgee';
+import TonogTohooromj from './components/TonogTohooromj';
 import Delgets from './components/Delgets';
 import AdminDashboard from './components/AdminDashboard';
 import AdminRedirect from './components/AdminRedirect';
@@ -70,6 +71,7 @@ function AppContent() {
                   <Route path="/news" element={<News />} />
                   <Route path="/news/:id" element={<News />} />
                   <Route path="/uilchilgee" element={<Uilchilgee />} />
+                  <Route path="/tonog-tohooromj" element={<TonogTohooromj />} />
                   <Route path="/delgets" element={<Delgets />} />
                   <Route path="/contact" element={<Contact />} />
                 </Routes>

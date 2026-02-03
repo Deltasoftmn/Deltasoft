@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { clearStrapiAuth } from '../api';
 import NewsManagement from './admin/NewsManagement';
 import ContactList from './admin/ContactList';
+import TonogTuhuurumjList from './admin/TonogTuhuurumjList';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -39,6 +40,13 @@ const AdminDashboard = () => {
           >
             📧 Үнийн санал
           </button>
+          <button
+            type="button"
+            className={section === 'tonog' ? 'active' : ''}
+            onClick={() => setSection('tonog')}
+          >
+            🔧 Тоног төхөөрөмж, худалдаа, засвар
+          </button>
         </nav>
         <button type="button" className="admin-logout-btn" onClick={handleLogout}>
           Гарах
@@ -47,6 +55,7 @@ const AdminDashboard = () => {
       <main className="admin-main">
         {section === 'news' && <NewsManagement />}
         {section === 'contacts' && <ContactList />}
+        {section === 'tonog' && <TonogTuhuurumjList />}
       </main>
     </div>
   );

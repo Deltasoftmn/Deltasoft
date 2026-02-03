@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { apiUrl } from '../api';
 import './QuoteModal.css';
 
+const SERVICE_TONOG = 'Тоног төхөөрөмж, худалдаа, засвар үйлчилгээ';
+
 const QuoteModal = ({ onClose }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,6 +20,11 @@ const QuoteModal = ({ onClose }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'service' && value === SERVICE_TONOG) {
+      onClose();
+      navigate('/tonog-tohooromj');
+      return;
+    }
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 

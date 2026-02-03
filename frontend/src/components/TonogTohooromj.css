@@ -1,0 +1,175 @@
+.tonog-tohooromj-page {
+  min-height: 100vh;
+  padding: 100px 20px 60px;
+  background: #0a0a0a;
+  color: var(--primary-white);
+}
+
+.tonog-tohooromj-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.tonog-tohooromj-title {
+  font-size: 32px;
+  text-align: center;
+  color: var(--primary-green);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.tonog-tohooromj-divider {
+  width: 80px;
+  height: 3px;
+  background: var(--primary-green);
+  margin: 0 auto 20px;
+}
+
+.tonog-tohooromj-subtitle {
+  text-align: center;
+  color: #aaa;
+  font-size: 16px;
+  margin-bottom: 48px;
+}
+
+.tonog-tohooromj-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.tonog-tohooromj-text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1rem;
+}
+
+.tonog-tohooromj-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Order form */
+.tonog-order-form-section {
+  max-width: 560px;
+  margin: 48px auto 0;
+  padding: 32px 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(183, 228, 0, 0.25);
+  border-radius: 16px;
+}
+
+.tonog-order-form-title {
+  font-size: 22px;
+  color: var(--primary-green);
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+.tonog-order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.tonog-form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 6px;
+}
+
+.tonog-form-group input,
+.tonog-form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: #0a0a0a;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.tonog-form-group input::placeholder,
+.tonog-form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.tonog-form-group input:focus,
+.tonog-form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 2px rgba(183, 228, 0, 0.2);
+}
+
+.tonog-form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.tonog-form-status {
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  line-height: 1.4;
+}
+
+.tonog-form-status.success {
+  background: rgba(34, 197, 94, 0.15);
+  color: #bbf7d0;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.tonog-form-status.error {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fecaca;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.tonog-order-btn {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0a0a0a;
+  background: var(--primary-green, #b7e400);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.tonog-order-btn:hover:not(:disabled) {
+  background: var(--primary-green-hover, #c4ef0a);
+  transform: translateY(-1px);
+}
+
+.tonog-order-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.tonog-order-note {
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .tonog-tohooromj-title {
+    font-size: 24px;
+  }
+
+  .tonog-order-form-section {
+    margin-top: 32px;
+    padding: 24px 20px;
+  }
+
+  .tonog-order-form-title {
+    font-size: 18px;
+  }
+}
