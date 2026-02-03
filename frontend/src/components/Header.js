@@ -65,7 +65,7 @@ const Header = () => {
                   <Link to="/" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
                     МАБ-ын Outsourcing үйлчилгээ
                   </Link>
-                  <Link to="/" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
+                  <Link to="/vev-dev" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
                     Вэб сайт, Програм хангамж хөгжүүлэлт
                   </Link>
                   <Link to="/tonog-tohooromj" className="dropdown-item" onClick={() => setIsServicesDropdownOpen(false)}>
@@ -104,7 +104,7 @@ const Header = () => {
                   <div className="mobile-dropdown-menu">
                     <Link to="/uilchilgee" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Гэрээт ІТ үйлчилгээ</Link>
                     <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>МАБ-ын Outsourcing үйлчилгээ</Link>
-                    <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Вэб сайт, Програм хангамж хөгжүүлэлт</Link>
+                    <Link to="/vev-dev" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Вэб сайт, Програм хангамж хөгжүүлэлт</Link>
                     <Link to="/tonog-tohooromj" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Тоног төхөөрөмж, худалдаа, засвар үйлчилгээ</Link>
                     <Link to="/" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Social хуудас болон контент хөгжүүлэлт</Link>
                     <Link to="/delgets" onClick={() => { setIsMenuOpen(false); setIsServicesDropdownOpen(false); }}>Дэлгэцийн реклам</Link>

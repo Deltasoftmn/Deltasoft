@@ -1,0 +1,187 @@
+.vev-dev-page {
+  min-height: 100vh;
+  padding: 100px 20px 60px;
+  background: #0a0a0a;
+  color: var(--primary-white);
+}
+
+.vev-dev-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.vev-dev-title {
+  font-size: 32px;
+  text-align: center;
+  color: var(--primary-green);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.vev-dev-divider {
+  width: 80px;
+  height: 3px;
+  background: var(--primary-green);
+  margin: 0 auto 20px;
+}
+
+.vev-dev-subtitle {
+  text-align: center;
+  color: #aaa;
+  font-size: 16px;
+  margin-bottom: 48px;
+}
+
+.vev-dev-intro {
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+
+.vev-dev-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.vev-dev-section-title {
+  font-size: 22px;
+  color: var(--primary-green);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.vev-dev-stack {
+  margin-bottom: 48px;
+}
+
+.vev-dev-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.vev-dev-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(183, 228, 0, 0.25);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.vev-dev-card:hover {
+  border-color: rgba(183, 228, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.vev-dev-card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.vev-dev-card-title {
+  font-size: 20px;
+  color: var(--primary-green);
+  margin: 0 0 12px;
+}
+
+.vev-dev-card-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.vev-dev-offer {
+  margin-bottom: 48px;
+}
+
+.vev-dev-list {
+  max-width: 560px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+}
+
+.vev-dev-list li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 10px 0 10px 32px;
+  position: relative;
+}
+
+.vev-dev-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--primary-green);
+  font-weight: 700;
+}
+
+.vev-dev-cta {
+  text-align: center;
+  padding: 40px 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(183, 228, 0, 0.2);
+  border-radius: 16px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.vev-dev-cta-text {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+}
+
+.vev-dev-cta-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0a0a0a;
+  background: var(--primary-green, #b7e400);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.vev-dev-cta-btn:hover {
+  background: var(--primary-green-hover, #c4ef0a);
+  transform: translateY(-1px);
+}
+
+.vev-dev-cta-or {
+  display: block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 16px 0 8px;
+}
+
+.vev-dev-cta-link {
+  font-size: 15px;
+  color: var(--primary-green);
+  text-decoration: none;
+}
+
+.vev-dev-cta-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .vev-dev-title {
+    font-size: 24px;
+  }
+
+  .vev-dev-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .vev-dev-section-title {
+    font-size: 18px;
+  }
+}
