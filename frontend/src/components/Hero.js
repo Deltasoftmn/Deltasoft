@@ -7,38 +7,9 @@ const Hero = () => {
   const [touchEnd, setTouchEnd] = useState(null);
 
   const slides = [
-    {
-      title: "OFFICIALLY LAUNCHED",
-      subtitle: "ENTERPRISE SOLUTIONS",
-      description: "Complete IT outsourcing solutions for your business",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&h=1080&fit=crop&q=80",
-      productTitle: "Enterprise Cloud Platform",
-      badge: "NEW"
-    },
-    {
-      title: "WEB DEVELOPMENT",
-      subtitle: "CUSTOM SOLUTIONS",
-      description: "Build scalable web applications for your business",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920&h=1080&fit=crop&q=80",
-      productTitle: "Full-Stack Development",
-      badge: "HOT"
-    },
-    {
-      title: "MOBILE APPS",
-      subtitle: "NATIVE & CROSS-PLATFORM",
-      description: "iOS and Android applications built to perfection",
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1920&h=1080&fit=crop&q=80",
-      productTitle: "Mobile Application Suite",
-      badge: "POPULAR"
-    },
-    {
-      title: "CLOUD SERVICES",
-      subtitle: "INFRASTRUCTURE & MIGRATION",
-      description: "Seamless cloud migration and management",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1080&fit=crop&q=80",
-      productTitle: "Cloud Infrastructure",
-      badge: "TRENDING"
-    }
+    { image: '/cover2.jpg' },
+    { image: '/cover3.jpg' },
+    { image: '/cover4.jpg' }
   ];
 
   // Auto-play carousel (pause on hover/touch)
@@ -113,9 +84,6 @@ const Hero = () => {
     <section className="hero">
       <div className="hero-container">
         <div className="hero-carousel-wrapper">
-          <button className="carousel-arrow carousel-arrow-left" onClick={goToPrevious}>
-            ‹
-          </button>
           <div 
             className="hero-carousel"
             onTouchStart={onTouchStart}
@@ -129,14 +97,12 @@ const Hero = () => {
                 style={{
                   backgroundImage: `url(${slide.image})`,
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center'
+                  backgroundPosition: 'center center',
+                  backgroundRepeat: 'no-repeat'
                 }}
               />
             ))}
           </div>
-          <button className="carousel-arrow carousel-arrow-right" onClick={goToNext}>
-            ›
-          </button>
         </div>
         <div className="hero-pagination">
           {slides.map((_, index) => (

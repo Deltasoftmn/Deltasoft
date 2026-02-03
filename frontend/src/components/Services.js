@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Services.css';
 
 const Services = () => {
@@ -6,32 +7,38 @@ const Services = () => {
     {
       title: "Гэрээт ІТ үйлчилгээ",
       icon: "💻",
-      description: "IT outsourcing services"
+      description: "IT outsourcing services",
+      to: "/uilchilgee"
     },
     {
       title: "МАБ-ын Outsourcing үйлчилгээ",
       icon: "💼",
-      description: "MAB outsourcing services"
+      description: "MAB outsourcing services",
+      to: "/"
     },
     {
       title: "Вэб сайт, Програм хангамж хөгжүүлэх",
       icon: "🌐",
-      description: "Website & Software Development"
+      description: "Website & Software Development",
+      to: "/vev-dev"
     },
     {
       title: "Тоног төхөөрөмж, худалдаа, засвар үйлчилгээ",
       icon: "🔧",
-      description: "Equipment, Trade & Repair Services"
+      description: "Equipment, Trade & Repair Services",
+      to: "/tonog-tohooromj"
     },
     {
       title: "Social хуудас болон котент хөгжүүлэлт",
       icon: "📱",
-      description: "Social Pages & Content Development"
+      description: "Social Pages & Content Development",
+      to: "/"
     },
     {
       title: "Дэлгэцийн реклам",
       icon: "📢",
-      description: "Display Advertising"
+      description: "Display Advertising",
+      to: "/delgets"
     }
   ];
 
@@ -40,11 +47,15 @@ const Services = () => {
       <div className="services-container">
         <div className="services-grid" data-aos="stagger">
           {services.map((service, index) => (
-            <div key={index} className="service-card aos-stagger-item">
+            <Link
+              key={index}
+              to={service.to}
+              className="service-card aos-stagger-item service-card-link"
+            >
               <div className="service-icon">{service.icon}</div>
               <h3 className="service-title">{service.title}</h3>
               <p className="service-description">{service.description}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

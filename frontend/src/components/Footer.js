@@ -15,8 +15,6 @@ const Footer = () => {
           <span className="separator">|</span>
           <Link to="/contact">Холбоо барих</Link>
           <span className="separator">|</span>
-          <Link to="/admin">Админ</Link>
-          <span className="separator">|</span>
           <a href="#logo">Лого</a>
         </div>
         <div className="footer-right">
