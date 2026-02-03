@@ -30,19 +30,26 @@ const QuoteModal = ({ onClose }) => {
 
     setIsSubmitting(true);
     try {
-      const res = await fetch(apiUrl('/api/contacts'), {
+      // Strapi rich-text (blocks) for tailbar
+      const tailbarBlocks = [
+        {
+          type: 'paragraph',
+          children: [{ type: 'text', text: formData.message || '' }],
+        },
+      ];
+
+      const res = await fetch(apiUrl('/api/uniin-sanals'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           data: {
-            name: formData.name,
+            Ner: formData.name,
             email: formData.email,
-            phone: formData.phone || '',
-            message: formData.service
-              ? `[Үнийн санал - ${formData.service}] ${formData.message}`
-              : `[Үнийн санал] ${formData.message}`,
+            Utas: formData.phone || '',
+            Uilchilgee: formData.service || '',
+            tailbar: tailbarBlocks,
           },
         }),
       });
@@ -50,7 +57,8 @@ const QuoteModal = ({ onClose }) => {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error?.message || 'Failed to send quote');
+        const msg = data.error?.message || data.error?.details?.errors?.[0]?.message || 'Failed to send quote';
+        throw new Error(msg);
       }
 
       setStatus({ type: 'success', message: 'Үнийн санал амжилттай илгээгдлээ.' });
@@ -58,7 +66,7 @@ const QuoteModal = ({ onClose }) => {
     } catch (error) {
       setStatus({
         type: 'error',
-        message: 'Үнийн санал илгээхэд алдаа гарлаа. Дахин оролдоно уу.',
+        message: error.message || 'Үнийн санал илгээхэд алдаа гарлаа. Дахин оролдоно уу.',
       });
     } finally {
       setIsSubmitting(false);

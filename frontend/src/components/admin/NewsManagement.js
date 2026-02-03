@@ -2,21 +2,51 @@ import React, { useState, useEffect } from 'react';
 import { apiUrl, authFetch, STRAPI_NEWS_API } from '../../api';
 import './NewsManagement.css';
 
+/** Extract plain text from Strapi Description: string or blocks array */
+function descriptionToText(desc) {
+  if (typeof desc === 'string') return desc;
+  if (Array.isArray(desc)) {
+    return desc
+      .map((block) => (block.children || []).map((c) => c.text || '').join(''))
+      .join('\n');
+  }
+  if (desc?.root?.children) {
+    return desc.root.children.map((c) => (c.children || []).map((t) => t.text).join('')).join('');
+  }
+  return '';
+}
+
 function normalizeNewsItem(d) {
   if (!d) return null;
-  const attrs = d.attributes || {};
-  const imageData = attrs.image?.data;
-  const imageUrl = imageData?.attributes?.url;
-  const body = attrs.content ?? attrs.description ?? '';
+  const flat = d.Title != null;
+  const title = flat ? (d.Title || '') : (d.attributes?.title || '');
+  const body = flat ? d.Description : (d.attributes?.content ?? d.attributes?.description ?? '');
+  const content = descriptionToText(body);
+  const author = flat ? (d.Author || '') : (d.attributes?.author || '');
+  const publishedAt = flat ? d.publishedAt : d.attributes?.publishedAt;
+  let imageId = null;
+  let imageUrl = null;
+  if (flat && Array.isArray(d.Image) && d.Image[0]) {
+    imageId = d.Image[0].id;
+    const u = d.Image[0].url || d.Image[0].formats?.medium?.url;
+    imageUrl = u ? (u.startsWith('http') ? u : apiUrl(u)) : null;
+  } else {
+    const imageData = d.attributes?.image?.data;
+    imageId = imageData?.id;
+    const u = imageData?.attributes?.url ?? imageData?.url;
+    imageUrl = u ? (u.startsWith('http') ? u : apiUrl(u)) : null;
+  }
+  const documentId = flat ? d.documentId : d.documentId ?? d.attributes?.documentId;
   return {
     id: d.id,
-    title: attrs.title || '',
-    content: typeof body === 'string' ? body : (body?.root?.children?.map((c) => c.children?.map((t) => t.text).join('')).join('') || ''),
-    author: attrs.author || '',
-    publishedAt: attrs.publishedAt,
-    published: !!attrs.publishedAt,
-    imageId: imageData?.id,
-    imageUrl: imageUrl ? (imageUrl.startsWith('http') ? imageUrl : apiUrl(imageUrl)) : null,
+    documentId: documentId || null,
+    title,
+    content,
+    author,
+    publishedAt,
+    published: !!publishedAt,
+    imageId,
+    imageUrl,
   };
 }
 
@@ -35,10 +65,10 @@ const NewsManagement = () => {
     setLoading(true);
     setError('');
     try {
-      const query = new URLSearchParams({ populate: 'image', sort: 'createdAt:desc' });
+      const query = new URLSearchParams({ populate: '*', sort: 'createdAt:desc' });
       let res = await authFetch(apiUrl(`/api/${STRAPI_NEWS_API}?${query}`));
       if (res.status === 400) {
-        const fallback = new URLSearchParams({ populate: 'image' });
+        const fallback = new URLSearchParams({ populate: '*' });
         res = await authFetch(apiUrl(`/api/${STRAPI_NEWS_API}?${fallback}`));
       }
       if (!res.ok) throw new Error('Мэдээ татахад алдаа гарлаа.');
@@ -77,16 +107,17 @@ const NewsManagement = () => {
     if (!res.ok) {
       if (res.status === 403) {
         throw new Error(
-          'UPLOAD_PERMISSION: Strapi дээр Upload эрх идэвхжүүлнэ үү: Settings → Users & Permissions → Roles → [роль] → Upload → "upload" сонгоно уу.'
+          'UPLOAD_PERMISSION: Strapi дээр Upload эрх идэвхжүүлнэ үү: Settings → Users & Permissions → Roles → Authenticated → Upload → "upload" сонгоно уу.'
         );
       }
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.error?.message || 'Зураг илгээхэд алдаа гарлаа.');
+      throw new Error(err.error?.message || `Зураг илгээхэд алдаа (${res.status}).`);
     }
-    const data = await res.json();
-    const first = Array.isArray(data) ? data[0] : data;
-    const id = first?.id;
-    return id != null ? Number(id) : null;
+    const json = await res.json().catch(() => ({}));
+    const raw = json.data ?? json;
+    const first = Array.isArray(raw) ? raw[0] : raw;
+    const id = first?.id != null ? Number(first.id) : null;
+    return id;
   };
 
   const handleSubmit = async (e) => {
@@ -98,10 +129,10 @@ const NewsManagement = () => {
     }
     setSubmitLoading(true);
     try {
-      let imageId = null;
+      let imageIdFromUpload = null;
       if (imageFile) {
         try {
-          imageId = await uploadImage(imageFile);
+          imageIdFromUpload = await uploadImage(imageFile);
         } catch (uploadErr) {
           const msg = String(uploadErr?.message || '');
           setError(
@@ -109,17 +140,20 @@ const NewsManagement = () => {
               ? 'Зургийн эрх байхгүй. Strapi Admin → Settings → Users & Permissions → Roles → [таны роль] → Upload → "upload" идэвхжүүлнэ үү. Мэдээг зураггүйгээр хадгалж байна.'
               : `Зураг илгээхэд алдаа: ${msg || 'Зураггүйгээр хадгална.'}`
           );
-          imageId = null;
+          imageIdFromUpload = null;
         }
       }
+      const imageId = imageIdFromUpload;
       const body = form.content.trim();
       const title = form.title.trim();
       const author = form.author?.trim() || null;
       const publishedAt = form.published ? new Date().toISOString() : null;
 
+      const editingItem = editingId ? list.find((i) => String(i.id) === String(editingId)) : null;
+      const editKey = editingItem?.documentId ?? editingId;
       const doRequest = (payload) =>
         editingId
-          ? authFetch(apiUrl(`/api/${STRAPI_NEWS_API}/${editingId}`), {
+          ? authFetch(apiUrl(`/api/${STRAPI_NEWS_API}/${editKey}`), {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(payload),
@@ -141,16 +175,16 @@ const NewsManagement = () => {
         );
       };
 
-      // Strapi schema: title (required), content (required), image (optional). Send minimal payload first to avoid 400 from extra/unknown fields.
+      const descriptionBlocks = [{ type: 'paragraph', children: [{ type: 'text', text: body || ' ' }] }];
+      const hasImage = imageId != null;
       const payloads = [
-        { data: { title, content: body, ...(imageId != null && { image: imageId }), ...(publishedAt && { publishedAt }) } },
-        { data: { title, content: body, ...(imageId != null && { image: imageId }) } },
+        hasImage && { data: { Title: title, Description: descriptionBlocks, ...(author && { Author: author }), Image: [imageId], ...(publishedAt && { publishedAt }) } },
+        hasImage && { data: { Title: title, Description: descriptionBlocks, ...(author && { Author: author }), Image: imageId, ...(publishedAt && { publishedAt }) } },
+        { data: { title, content: body, ...(hasImage && imageId != null && { image: imageId }), ...(publishedAt && { publishedAt }) } },
+        { data: { title, content: body, ...(hasImage && imageId != null && { image: imageId }) } },
+        { data: { Title: title, Description: descriptionBlocks, ...(author && { Author: author }), ...(publishedAt && { publishedAt }) } },
         { data: { title, content: body, ...(publishedAt && { publishedAt }) } },
-        { data: { title, description: body, ...(imageId != null && { image: imageId }), ...(publishedAt && { publishedAt }) } },
-        { data: { title, description: body, ...(imageId != null && { image: imageId }) } },
-        { data: { title, content: body, description: body, ...(imageId != null && { image: imageId }), ...(publishedAt && { publishedAt }) } },
-        { data: { title, content: body, ...(author && { author }), ...(imageId != null && { image: imageId }), ...(publishedAt && { publishedAt }) } },
-      ];
+      ].filter(Boolean);
 
       let res = null;
       let lastErr = '';
@@ -162,7 +196,8 @@ const NewsManagement = () => {
       }
 
       if (!res || !res.ok) {
-        const msg = lastErr || (res ? await parseError(res) : 'Мэдээ нэмэхэд алдаа гарлаа.');
+        let msg = lastErr || (res ? await parseError(res) : 'Мэдээ нэмэхэд алдаа гарлаа.');
+        if (res?.status === 404) msg = 'Мэдээ олдсонгүй (404). Дараагийн удаа дахин оролдоно уу.';
         throw new Error(msg);
       }
       setError('');
@@ -196,10 +231,11 @@ const NewsManagement = () => {
     setShowForm(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (item) => {
     if (!window.confirm('Энэ мэдээг устгах уу?')) return;
     try {
-      const res = await authFetch(apiUrl(`/api/${STRAPI_NEWS_API}/${id}`), { method: 'DELETE' });
+      const key = item.documentId ?? item.id;
+      const res = await authFetch(apiUrl(`/api/${STRAPI_NEWS_API}/${key}`), { method: 'DELETE' });
       if (!res.ok) throw new Error('Устгахад алдаа гарлаа.');
       fetchNews();
     } catch (e) {
@@ -209,8 +245,9 @@ const NewsManagement = () => {
 
   const togglePublish = async (item) => {
     const newPublished = !item.published;
+    const key = item.documentId ?? item.id;
     try {
-      const res = await authFetch(apiUrl(`/api/${STRAPI_NEWS_API}/${item.id}`), {
+      const res = await authFetch(apiUrl(`/api/${STRAPI_NEWS_API}/${key}`), {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -264,7 +301,13 @@ const NewsManagement = () => {
           <div className="form-group form-row-two">
             <div className="form-group">
               <label>Зураг (Image)</label>
-              <input type="file" accept="image/*" onChange={handleImageChange} />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                key={editingId ?? 'new'}
+              />
+              {imageFile && <p className="form-file-name">{imageFile.name}</p>}
               {imagePreview && (
                 <div className="image-preview">
                   <img src={imagePreview} alt="Preview" />
@@ -333,7 +376,7 @@ const NewsManagement = () => {
                   {item.published ? 'Ноорог болгох' : 'Нэвтрүүлэх'}
                 </button>
                 <button type="button" className="btn-edit" onClick={() => handleEdit(item)}>Засах</button>
-                <button type="button" className="btn-delete" onClick={() => handleDelete(item.id)}>Устгах</button>
+                <button type="button" className="btn-delete" onClick={() => handleDelete(item)}>Устгах</button>
               </div>
             </li>
           ))}

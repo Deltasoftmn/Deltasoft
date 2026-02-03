@@ -2,36 +2,56 @@ import React, { useState, useEffect } from 'react';
 import { apiUrl, authFetch } from '../../api';
 import './ContactList.css';
 
-function normalizeContact(d) {
-  if (!d) return null;
-  const attrs = d.attributes || {};
-  return {
-    id: d.id,
-    name: attrs.name || '',
-    email: attrs.email || '',
-    phone: attrs.phone || '',
-    message: attrs.message || '',
-    status: attrs.status || 'new',
-    createdAt: attrs.createdAt,
-  };
+/** Extract plain text from Strapi rich-text (blocks) field */
+function richTextToPlain(blocks) {
+  if (!blocks || !Array.isArray(blocks)) return '';
+  return blocks
+    .map((block) => {
+      if (block.children && Array.isArray(block.children)) {
+        return block.children.map((c) => (c && c.text) || '').join('');
+      }
+      return '';
+    })
+    .filter(Boolean)
+    .join('\n');
 }
 
-const statusLabel = { new: 'Шинэ', read: 'Уншсан', replied: 'Хариулсан' };
+function normalizeQuote(d) {
+  if (!d) return null;
+  const attrs = d.attributes || {};
+  const flat = typeof d.Ner !== 'undefined' || typeof d.email !== 'undefined';
+  const ner = flat ? d.Ner : attrs.Ner;
+  const email = flat ? d.email : attrs.email;
+  const utas = flat ? d.Utas : attrs.Utas;
+  const uilchilgee = flat ? d.Uilchilgee : attrs.Uilchilgee;
+  const tailbarRaw = flat ? d.tailbar : attrs.tailbar;
+  const tailbar = richTextToPlain(tailbarRaw);
+  return {
+    id: d.id,
+    documentId: d.documentId,
+    name: ner || '',
+    email: email || '',
+    phone: utas || '',
+    service: uilchilgee || '',
+    message: tailbar,
+    createdAt: flat ? d.createdAt : attrs.createdAt,
+  };
+}
 
 const ContactList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const fetchContacts = async () => {
+  const fetchQuotes = async () => {
     setLoading(true);
     setError('');
     try {
-      const res = await authFetch(apiUrl('/api/contacts?sort=createdAt:desc'));
-      if (!res.ok) throw new Error('Холбоо барих жагсаалт татахад алдаа гарлаа.');
+      const res = await authFetch(apiUrl('/api/uniin-sanals?populate=*&sort=createdAt:desc'));
+      if (!res.ok) throw new Error('Үнийн санал жагсаалт татахад алдаа гарлаа.');
       const json = await res.json();
       const raw = json.data;
-      setList(Array.isArray(raw) ? raw.map(normalizeContact).filter(Boolean) : []);
+      setList(Array.isArray(raw) ? raw.map(normalizeQuote).filter(Boolean) : []);
     } catch (e) {
       setError(e.message || 'Алдаа гарлаа.');
       setList([]);
@@ -41,29 +61,16 @@ const ContactList = () => {
   };
 
   useEffect(() => {
-    fetchContacts();
+    fetchQuotes();
   }, []);
 
-  const handleStatusChange = async (id, status) => {
+  const handleDelete = async (item) => {
+    if (!window.confirm('Энэ үнийн саналыг устгах уу?')) return;
+    const docId = item.documentId ?? item.id;
     try {
-      const res = await authFetch(apiUrl(`/api/contacts/${id}`), {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: { status } }),
-      });
-      if (!res.ok) throw new Error('Төлөв солиход алдаа гарлаа.');
-      setList((prev) => prev.map((c) => (c.id === id ? { ...c, status } : c)));
-    } catch (e) {
-      setError(e.message);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    if (!window.confirm('Энэ холбоо барихыг устгах уу?')) return;
-    try {
-      const res = await authFetch(apiUrl(`/api/contacts/${id}`), { method: 'DELETE' });
+      const res = await authFetch(apiUrl(`/api/uniin-sanals/${docId}`), { method: 'DELETE' });
       if (!res.ok) throw new Error('Устгахад алдаа гарлаа.');
-      setList((prev) => prev.filter((c) => c.id !== id));
+      setList((prev) => prev.filter((c) => (c.documentId ?? c.id) !== docId));
     } catch (e) {
       setError(e.message);
     }
@@ -72,30 +79,30 @@ const ContactList = () => {
   return (
     <div className="contact-list-admin">
       <div className="contact-list-header">
-        <h1>Холбоо барих / Үнийн санал</h1>
+        <h1>Үнийн санал</h1>
       </div>
       {error && <div className="contact-list-error">{error}</div>}
 
       {loading ? (
         <p className="contact-list-loading">Ачааллаж байна...</p>
       ) : list.length === 0 ? (
-        <p className="contact-list-empty">Холбоо барих, үнийн санал байхгүй байна.</p>
+        <p className="contact-list-empty">Үнийн санал байхгүй байна.</p>
       ) : (
         <div className="contact-stats">
           <span>Нийт: {list.length}</span>
-          <span>Шинэ: {list.filter((c) => c.status === 'new').length}</span>
         </div>
       )}
 
       {!loading && list.length > 0 && (
         <ul className="contact-list">
           {list.map((item) => (
-            <li key={item.id} className="contact-item">
+            <li key={item.documentId || item.id} className="contact-item">
               <div className="contact-item-header">
                 <div>
                   <strong>{item.name}</strong>
                   <span className="contact-email">{item.email}</span>
                   {item.phone && <span className="contact-phone">{item.phone}</span>}
+                  {item.service && <span className="contact-service">Үйлчилгээ: {item.service}</span>}
                 </div>
                 <div className="contact-meta">
                   <span className="contact-date">
@@ -109,21 +116,12 @@ const ContactList = () => {
                         })
                       : ''}
                   </span>
-                  <select
-                    value={item.status}
-                    onChange={(e) => handleStatusChange(item.id, e.target.value)}
-                    className="contact-status-select"
-                  >
-                    <option value="new">{statusLabel.new}</option>
-                    <option value="read">{statusLabel.read}</option>
-                    <option value="replied">{statusLabel.replied}</option>
-                  </select>
-                  <button type="button" className="btn-delete-small" onClick={() => handleDelete(item.id)}>
+                  <button type="button" className="btn-delete-small" onClick={() => handleDelete(item)}>
                     Устгах
                   </button>
                 </div>
               </div>
-              <div className="contact-message">{item.message}</div>
+              {item.message && <div className="contact-message">{item.message}</div>}
             </li>
           ))}
         </ul>

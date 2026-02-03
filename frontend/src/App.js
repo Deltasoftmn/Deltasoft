@@ -68,6 +68,7 @@ function AppContent() {
                   <Route path="/why-us" element={<WhyUs />} />
                   <Route path="/works" element={<Works />} />
                   <Route path="/news" element={<News />} />
+                  <Route path="/news/:id" element={<News />} />
                   <Route path="/uilchilgee" element={<Uilchilgee />} />
                   <Route path="/delgets" element={<Delgets />} />
                   <Route path="/contact" element={<Contact />} />

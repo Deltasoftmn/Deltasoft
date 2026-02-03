@@ -70,6 +70,13 @@
   margin-top: 0.15rem;
 }
 
+.contact-service {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--primary-green, #b7e400);
+  margin-top: 0.15rem;
+}
+
 .contact-meta {
   display: flex;
   align-items: center;

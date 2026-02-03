@@ -17,6 +17,37 @@
   box-shadow: var(--shadow-md, 0 8px 24px rgba(0,0,0,0.5));
 }
 
+.admin-login-switch {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1rem;
+  background: var(--primary-black, #0a0a0a);
+  border-radius: var(--radius-sm, 6px);
+  padding: 3px;
+}
+
+.admin-login-switch button {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+.admin-login-switch button:hover {
+  color: rgba(255,255,255,0.9);
+}
+
+.admin-login-switch button.active {
+  color: var(--primary-black, #0a0a0a);
+  background: var(--primary-green, #b7e400);
+}
+
 .admin-login-logo {
   width: 56px;
   height: 56px;

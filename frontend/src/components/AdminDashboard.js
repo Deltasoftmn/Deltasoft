@@ -37,7 +37,7 @@ const AdminDashboard = () => {
             className={section === 'contacts' ? 'active' : ''}
             onClick={() => setSection('contacts')}
           >
-            📧 Холбоо барих / Үнийн санал
+            📧 Үнийн санал
           </button>
         </nav>
         <button type="button" className="admin-logout-btn" onClick={handleLogout}>
