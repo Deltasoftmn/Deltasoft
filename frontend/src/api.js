@@ -5,8 +5,8 @@
  */
 export const STRAPI_URL = process.env.REACT_APP_STRAPI_URL || '';
 
-/** News API path: use "newss" if your Strapi content type uses /api/newss, else "news" */
-export const STRAPI_NEWS_API = process.env.REACT_APP_STRAPI_NEWS_API || 'news';
+/** News API path: default "newss" (admin.deltasoft.website). Set REACT_APP_STRAPI_NEWS_API=news if your Strapi uses /api/news */
+export const STRAPI_NEWS_API = process.env.REACT_APP_STRAPI_NEWS_API || 'newss';
 
 export function apiUrl(path) {
   const base = STRAPI_URL.replace(/\/$/, '');
