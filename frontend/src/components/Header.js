@@ -41,8 +41,8 @@ const Header = () => {
           <div className="top-banner-text">Ухаалаг шийдлээр Урагш алхана</div>
           <div className="top-banner-phone">
             <span className="phone-icon">📞</span>
-            <a href="tel:+97675331177" className="phone-number">+976 75331177</a>
             <a href="tel:+97689781177" className="phone-number">+976 89781177</a>
+            <a href="tel:+97675331177" className="phone-number">+976 75331177</a>
           </div>
         </div>
       </div>

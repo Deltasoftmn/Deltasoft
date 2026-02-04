@@ -94,7 +94,7 @@ const Contact = () => {
               <div className="info-icon">📞</div>
               <div>
                 <h3 className="info-label">Утас:</h3>
-                <p className="info-text">+976 7533 1177, +976 9502 1177</p>
+                <p className="info-text">+976 8978 1177, +976 7533 1177</p>
               </div>
             </div>
 
