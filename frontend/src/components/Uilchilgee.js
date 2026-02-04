@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Uilchilgee.css';
+import QuoteModal from './QuoteModal';
 
 const Uilchilgee = () => {
+  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+
+  const openQuote = () => setIsQuoteOpen(true);
+  const closeQuote = () => setIsQuoteOpen(false);
+
   return (
     <div className="uilchilgee-page">
       <div className="uilchilgee-container">
@@ -40,6 +46,9 @@ const Uilchilgee = () => {
                 <span>Сар тутмын тайлан</span>
               </li>
             </ul>
+            <button type="button" className="package-quote-btn" onClick={openQuote}>
+              Үнийн санал авах
+            </button>
             <p className="package-summary">Жижиг, дунд байгууллагад өдөр тутмын МТ-ийн хэвийн ажиллагааг хангахад зориулагдсан.</p>
           </div>
 
@@ -70,6 +79,9 @@ const Uilchilgee = () => {
                 <span>МТ ашиглалтын анхан шатны сургалт, МАБ-ын анхан шатны сургалт</span>
               </li>
             </ul>
+            <button type="button" className="package-quote-btn" onClick={openQuote}>
+              Үнийн санал авах
+            </button>
             <p className="package-summary">Өдөр тутмын ажиллагаанаас гадна МТ-ийн тогтвортой, аюулгүй байдлыг хангана.</p>
           </div>
 
@@ -104,10 +116,14 @@ const Uilchilgee = () => {
                 <span>МТ ашиглалтын анхан, дунд шатны сургалт; МАБ-ын анхан, дунд шатны сургалт</span>
               </li>
             </ul>
+            <button type="button" className="package-quote-btn" onClick={openQuote}>
+              Үнийн санал авах
+            </button>
             <p className="package-summary">Байгууллагын МТ-ийг стратегийн түвшинд удирдаж, өндөр найдвартай ажиллагааг хангана.</p>
           </div>
         </div>
       </div>
+      {isQuoteOpen && <QuoteModal onClose={closeQuote} />}
     </div>
   );
 };

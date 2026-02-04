@@ -21,10 +21,23 @@
 }
 
 .delgets-divider {
-  width: 80px;
+  width: 160px;
   height: 3px;
-  background: var(--primary-green);
+  background: linear-gradient(90deg, transparent, var(--primary-green), transparent);
   margin: 0 auto 30px;
+  position: relative;
+}
+
+.delgets-divider::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary-green);
+  border-radius: 50%;
 }
 
 .delgets-carousel-wrap {

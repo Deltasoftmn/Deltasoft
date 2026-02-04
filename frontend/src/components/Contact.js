@@ -77,7 +77,7 @@ const Contact = () => {
                 <h3 className="info-label">Хаяг:</h3>
                 <p className="info-text">
                   Монгол улс, Улаанбаатар хот, Сүхбаатар дүүрэг<br />
-                  1-р хороо, ЮүБиЭйч 10-р давхарт 1010 тоот
+                  8-р хороо, GB центр 2-р давхар 202 тоот
                 </p>
               </div>
             </div>
@@ -101,7 +101,7 @@ const Contact = () => {
             <div className="map-wrapper">
               <iframe
                 title="Deltasoft Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537363159049!3d-37.81627974202115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ5JzAwLjYiUyAxNDTCsDU3JzE1LjQiRQ!5e0!3m2!1sen!2s!4v1700000000000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2708.081537630433!2d106.92087047373694!3d47.925889106090885!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d9693d77a4c4e01%3A0xea65c3e5f9df586!2zR0Ig0YbQtdC90YLRgA!5e0!3m2!1sen!2smn!4v1770195213361!5m2!1sen!2smn"
                 width="100%"
                 height="260"
                 style={{ border: 0 }}
