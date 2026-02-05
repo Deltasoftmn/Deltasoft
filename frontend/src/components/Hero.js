@@ -6,10 +6,11 @@ const Hero = () => {
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
+  const base = process.env.PUBLIC_URL || '';
   const slides = [
-    { image: '/cover2.jpg' },
-    { image: '/cover3.jpg' },
-    { image: '/cover4.jpg' }
+    { image: `${base}/cover2.jpg` },
+    { image: `${base}/cover3.jpg` },
+    { image: `${base}/cover4.jpg` }
   ];
 
   // Auto-play carousel (pause on hover/touch)

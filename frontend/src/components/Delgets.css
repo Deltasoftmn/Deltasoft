@@ -124,24 +124,74 @@
 
 @media (max-width: 768px) {
   .delgets-page {
-    padding: calc(120px + env(safe-area-inset-top, 0px)) 16px 40px;
+    padding: calc(100px + env(safe-area-inset-top, 0px)) 12px 40px;
     padding-bottom: max(40px, env(safe-area-inset-bottom, 0px) + 24px);
   }
 
   .delgets-title {
-    font-size: 32px;
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .delgets-divider {
+    margin-bottom: 24px;
+  }
+
+  .delgets-carousel-wrap {
+    padding: 0 44px;
+    margin-bottom: 16px;
+    min-height: 200px;
+    z-index: 1;
   }
 
   .delgets-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 22px;
+    width: 40px;
+    height: 40px;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 24px;
+    -webkit-tap-highlight-color: transparent;
+    top: 50%;
   }
 
-  .delgets-arrow-left { left: 8px; }
-  .delgets-arrow-right { right: 8px; }
+  .delgets-arrow-left {
+    left: 4px;
+  }
+
+  .delgets-arrow-right {
+    right: 4px;
+  }
+
+  .delgets-carousel {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .delgets-slide {
+    width: 100%;
+  }
 
   .delgets-slide img {
-    max-height: 45vh;
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    min-height: 180px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .delgets-dots {
+    gap: 12px;
+    padding: 8px 0;
+  }
+
+  .delgets-dot {
+    width: 12px;
+    height: 12px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 16px;
+    -webkit-tap-highlight-color: transparent;
   }
 }

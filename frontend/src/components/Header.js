@@ -100,15 +100,21 @@ const Header = () => {
           </div>
           {isMenuOpen && (
             <div className="mobile-menu">
-              <button 
-                className="mobile-menu-close"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  setIsServicesDropdownOpen(false);
-                }}
-              >
-                ✕
-              </button>
+              <div className="mobile-menu-header">
+                <span className="mobile-menu-title">Меню</span>
+                <button
+                  type="button"
+                  className="mobile-menu-close"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setIsServicesDropdownOpen(false);
+                  }}
+                  aria-label="Хаах"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="mobile-menu-links">
               <Link to="/about" onClick={() => setIsMenuOpen(false)}>Бидний тухай</Link>
               <div className="mobile-dropdown">
                 <div className="mobile-dropdown-trigger" onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}>
@@ -137,6 +143,7 @@ const Header = () => {
               >
                 Үнийн санал авах
               </button>
+              </div>
             </div>
           )}
           <button 

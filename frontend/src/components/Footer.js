@@ -24,7 +24,7 @@ const Footer = () => {
             Оффисын байршил
           </button>
           <span className="separator">|</span>
-          <Link to="/news">Мэдээ, хэвлэл</Link>
+          <Link to="/news">Мэдээ мэдээлэл</Link>
           <span className="separator">|</span>
           <Link to="/contact">Холбоо барих</Link>
           <span className="separator">|</span>

@@ -32,11 +32,13 @@
     height: auto;
     max-height: none;
     overflow-x: hidden;
+    position: relative;
   }
 
   .main-content {
     padding-top: 100px; /* space for fixed header (top-banner + main-nav) */
     -webkit-overflow-scrolling: touch;
+    z-index: 1;
   }
 }
 
