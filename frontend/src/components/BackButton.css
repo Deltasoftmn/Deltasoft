@@ -1,0 +1,27 @@
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-green, #b7e400);
+  background: transparent;
+  border: 1px solid rgba(183, 228, 0, 0.4);
+  border-radius: var(--radius-sm, 8px);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-button:hover {
+  color: #0a0a0a;
+  background: var(--primary-green, #b7e400);
+  border-color: var(--primary-green, #b7e400);
+}
+
+.back-button:active {
+  opacity: 0.9;
+}

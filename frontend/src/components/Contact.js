@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { apiUrl } from '../api';
+import BackButton from './BackButton';
 import './Contact.css';
 
 const Contact = () => {
@@ -66,6 +67,7 @@ const Contact = () => {
   return (
     <div className="contact-page">
       <div className="contact-container">
+        <BackButton />
         <h1 className="contact-title">ХОЛБОО БАРИХ</h1>
         <div className="contact-divider" />
 

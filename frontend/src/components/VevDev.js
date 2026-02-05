@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import BackButton from './BackButton';
+import QuoteModal from './QuoteModal';
 import './VevDev.css';
 
 const TECH_STACK = [
@@ -46,9 +48,12 @@ const TECH_STACK = [
 ];
 
 const VevDev = () => {
+  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+
   return (
     <div className="vev-dev-page">
       <div className="vev-dev-container">
+        <BackButton />
         <h1 className="vev-dev-title">ВЭБ САЙТ, ПРОГРАМ ХАНГАМЖ ХӨГЖҮҮЛЭХ</h1>
         <div className="vev-dev-divider" />
         <p className="vev-dev-subtitle">Website & Software Development</p>
@@ -89,9 +94,16 @@ const VevDev = () => {
           <p className="vev-dev-cta-text">Төслөө эхлүүлэх эсвэл үнийн санал авахыг хүсвэл холбогдоно уу.</p>
           <Link to="/contact" className="vev-dev-cta-btn">Холбоо барих</Link>
           <span className="vev-dev-cta-or">эсвэл</span>
-          <Link to="/" className="vev-dev-cta-link">Үнийн санал авах</Link>
+          <button
+            type="button"
+            className="vev-dev-cta-link"
+            onClick={() => setIsQuoteOpen(true)}
+          >
+            Үнийн санал авах
+          </button>
         </section>
       </div>
+      {isQuoteOpen && <QuoteModal onClose={() => setIsQuoteOpen(false)} />}
     </div>
   );
 };

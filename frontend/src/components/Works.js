@@ -1,4 +1,5 @@
 import React from 'react';
+import BackButton from './BackButton';
 import './Works.css';
 
 const Works = () => {
@@ -29,6 +30,7 @@ const Works = () => {
     <div className="works-page">
       <div className="works-container">
         <div className="works-content">
+          <BackButton />
           <h1 className="works-title">БИДНИЙ ХИЙСЭН ТОМООХОН АЖЛУУД</h1>
           <div className="title-divider"></div>
           

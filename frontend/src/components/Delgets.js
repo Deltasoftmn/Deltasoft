@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import BackButton from './BackButton';
 import './Delgets.css';
 
 const IMAGES = [
@@ -38,6 +39,7 @@ const Delgets = () => {
   return (
     <div className="delgets-page">
       <div className="delgets-container">
+        <BackButton />
         <h1 className="delgets-title">ДЭЛГЭЦ</h1>
         <div className="delgets-divider" />
 

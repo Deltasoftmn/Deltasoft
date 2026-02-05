@@ -1,4 +1,5 @@
 import React from 'react';
+import BackButton from './BackButton';
 import './About.css';
 
 const INTRO_PARAGRAPHS = [
@@ -34,6 +35,7 @@ const About = () => {
   return (
     <div className="about-page">
       <div className="about-container">
+        <BackButton />
         <h1 className="about-title">БИДНИЙ ТУХАЙ</h1>
         <div className="about-divider" />
 

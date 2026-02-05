@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { apiUrl } from '../api';
+import BackButton from './BackButton';
 import './TonogTohooromj.css';
 
 const TonogTohooromj = () => {
@@ -67,6 +68,7 @@ const TonogTohooromj = () => {
   return (
     <div className="tonog-tohooromj-page">
       <div className="tonog-tohooromj-container">
+        <BackButton />
         <h1 className="tonog-tohooromj-title">ТОНОГ ТӨХӨӨРӨМЖ, ХУДАЛДАА, ЗАСВАР ҮЙЛЧИЛГЭЭ</h1>
         <div className="tonog-tohooromj-divider" />
         <p className="tonog-tohooromj-subtitle">Equipment, Trade & Repair Services</p>

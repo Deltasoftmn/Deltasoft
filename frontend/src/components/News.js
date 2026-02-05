@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { apiUrl, STRAPI_NEWS_API, STRAPI_URL } from '../api';
+import BackButton from './BackButton';
 import './News.css';
 
 /** Extract plain text from Strapi Description: string or blocks array [{ type, children: [{ text }] }] */
@@ -178,6 +179,7 @@ const News = () => {
   return (
     <div className="news-page">
       <div className="news-container" data-aos="fade-up">
+        <BackButton />
         <h1 className="news-title">МЭДЭЭ</h1>
         <div className="news-divider" />
 

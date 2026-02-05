@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './Uilchilgee.css';
+import BackButton from './BackButton';
 import QuoteModal from './QuoteModal';
+import './Uilchilgee.css';
 
 const Uilchilgee = () => {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
@@ -11,6 +12,7 @@ const Uilchilgee = () => {
   return (
     <div className="uilchilgee-page">
       <div className="uilchilgee-container">
+        <BackButton />
         <h1 className="uilchilgee-title">ҮЙЛЧИЛГЭЭ</h1>
         <div className="uilchilgee-divider" />
         <p className="uilchilgee-subtitle">Гэрээт ІТ үйлчилгээ — МТ дэмжлэгийн багцууд</p>
