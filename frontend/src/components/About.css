@@ -88,12 +88,13 @@
   letter-spacing: 2px;
 }
 
-/* Detailed team cards */
+/* Detailed team cards – 3 columns so 6 people show as 3+3 */
 .team-detailed-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 40px;
+  width: 100%;
 }
 
 .team-card {
@@ -106,6 +107,14 @@
 .team-card-detailed {
   display: flex;
   flex-direction: column;
+}
+
+.team-card-no-photo.team-card-detailed .team-info {
+  padding-top: 24px;
+}
+
+.team-card-no-photo.team-card-compact {
+  padding-top: 24px;
 }
 
 .team-photo {
@@ -180,18 +189,20 @@
   margin: 0;
 }
 
-/* Compact team grid */
+/* Compact team grid – same 4 columns, full width as above */
 .team-compact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
 }
 
-/* Isolated team grid (separate section) */
+/* Isolated team grid – same 4 columns, full width */
 .team-isolated-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
   margin-top: 40px;
   padding-top: 32px;
   border-top: 1px solid rgba(183, 228, 0, 0.2);

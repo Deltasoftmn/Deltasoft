@@ -18,7 +18,7 @@ const TEAM_DETAILED = [
 ];
 
 const TEAM_COMPACT = [
-  { name: 'ЖАРГАЛСАЙХАН', title: 'Ахлах Хөгжүүлэгч' },
+  { name: 'Б.ЖАРГАЛСАЙХАН', title: 'Ахлах Хөгжүүлэгч' },
   { name: 'М.БИЛГҮҮНЗАЯА', title: 'Хөгжүүлэгч', image: '' },
   { name: 'Ө.ЭНХЖИН', title: 'Мэдээллийн аюулгүй байдлын мэргэжилтэн' },
   { name: 'У.АМГАЛАНБААТАР', title: 'Мэдээллийн аюулгүй байдлын инженер' },
@@ -51,12 +51,12 @@ const About = () => {
 
           <div className="team-detailed-grid">
             {TEAM_DETAILED.map((m, i) => (
-              <div key={i} className="team-card team-card-detailed">
-                <div className="team-photo">
-                  {m.image ? (
-                    <img src={`${process.env.PUBLIC_URL}/${m.image}`} alt={m.name} />
-                  ) : null}
-                </div>
+              <div key={i} className={`team-card team-card-detailed ${!m.image ? 'team-card-no-photo' : ''}`}>
+                {m.image && (
+                  <div className="team-photo">
+                    <img src={`${process.env.PUBLIC_URL || ''}/${m.image}`} alt={m.name} />
+                  </div>
+                )}
                 <div className="team-info">
                   <h3 className="team-name">{m.name}</h3>
                   <p className="team-title">{m.title}</p>
@@ -67,12 +67,12 @@ const About = () => {
 
           <div className="team-compact-grid">
             {TEAM_COMPACT.map((m, i) => (
-              <div key={i} className="team-card team-card-compact">
-                <div className="team-photo team-photo-compact">
-                  {m.image ? (
-                    <img src={`${process.env.PUBLIC_URL}/${m.image}`} alt={m.name} />
-                  ) : null}
-                </div>
+              <div key={i} className={`team-card team-card-compact ${!m.image ? 'team-card-no-photo' : ''}`}>
+                {m.image && (
+                  <div className="team-photo team-photo-compact">
+                    <img src={`${process.env.PUBLIC_URL || ''}/${m.image}`} alt={m.name} />
+                  </div>
+                )}
                 <h3 className="team-name">{m.name}</h3>
                 <div className="team-title-line" />
                 <p className="team-title">{m.title}</p>
@@ -82,12 +82,12 @@ const About = () => {
 
           <div className="team-isolated-grid">
             {TEAM_ISOLATED.map((m, i) => (
-              <div key={i} className="team-card team-card-compact">
-                <div className="team-photo team-photo-compact">
-                  {m.image ? (
-                    <img src={`${process.env.PUBLIC_URL}/${m.image}`} alt={m.name} />
-                  ) : null}
-                </div>
+              <div key={i} className={`team-card team-card-compact ${!m.image ? 'team-card-no-photo' : ''}`}>
+                {m.image && (
+                  <div className="team-photo team-photo-compact">
+                    <img src={`${process.env.PUBLIC_URL || ''}/${m.image}`} alt={m.name} />
+                  </div>
+                )}
                 <h3 className="team-name">{m.name}</h3>
                 <div className="team-title-line" />
                 <p className="team-title">{m.title}</p>
