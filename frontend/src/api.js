@@ -16,21 +16,44 @@ export function apiUrl(path) {
 
 const ADMIN_JWT_KEY = 'strapi_admin_jwt';
 const ADMIN_USER_KEY = 'strapi_admin_user';
+const STRAPI_ROLE_KEY = 'strapi_login_role';
 
 export function getStrapiJwt() {
   return localStorage.getItem(ADMIN_JWT_KEY);
 }
 
-export function setStrapiAuth(jwt, user) {
+export function setStrapiAuth(jwt, user, roleHint) {
   if (jwt) localStorage.setItem(ADMIN_JWT_KEY, jwt);
   else localStorage.removeItem(ADMIN_JWT_KEY);
   if (user) localStorage.setItem(ADMIN_USER_KEY, JSON.stringify(user));
   else localStorage.removeItem(ADMIN_USER_KEY);
+  if (roleHint) localStorage.setItem(STRAPI_ROLE_KEY, roleHint);
+  else localStorage.removeItem(STRAPI_ROLE_KEY);
 }
 
 export function clearStrapiAuth() {
   localStorage.removeItem(ADMIN_JWT_KEY);
   localStorage.removeItem(ADMIN_USER_KEY);
+  localStorage.removeItem(STRAPI_ROLE_KEY);
+}
+
+/** Parsed user object from localStorage (set after login). */
+export function getStrapiUser() {
+  try {
+    const raw = localStorage.getItem(ADMIN_USER_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** True if user has Worker role (by role.name, stored role hint, or login mode). */
+export function isWorkerUser(user) {
+  const storedRole = localStorage.getItem(STRAPI_ROLE_KEY);
+  if (storedRole && storedRole.toLowerCase() === 'worker') return true;
+  if (!user) return false;
+  const name = user.role?.name || user.role?.type || '';
+  return String(name).toLowerCase().includes('worker');
 }
 
 export function getAuthHeaders() {
@@ -44,8 +67,12 @@ export function authFetch(url, options = {}) {
     ...getAuthHeaders(),
     ...(options.headers || {}),
   };
-  if (options.body && typeof options.body === 'object' && !(options.body instanceof FormData) && !(options.body instanceof Blob)) {
-    if (!headers['Content-Type']) headers['Content-Type'] = 'application/json';
+  if (options.body != null && !headers['Content-Type']) {
+    if (typeof options.body === 'string') {
+      headers['Content-Type'] = 'application/json';
+    } else if (typeof options.body === 'object' && !(options.body instanceof FormData) && !(options.body instanceof Blob)) {
+      headers['Content-Type'] = 'application/json';
+    }
   }
   return fetch(url, { ...options, headers });
 }

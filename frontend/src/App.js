@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { getStrapiJwt } from './api';
+import { getStrapiJwt, getStrapiUser, isWorkerUser } from './api';
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,10 +15,17 @@ import TonogTohooromj from './components/TonogTohooromj';
 import VevDev from './components/VevDev';
 import Delgets from './components/Delgets';
 import AdminDashboard from './components/AdminDashboard';
+import WorkerDashboard from './components/WorkerDashboard';
 import AdminRedirect from './components/AdminRedirect';
 
 function AdminGuard({ children }) {
   return getStrapiJwt() ? children : <Navigate to="/admin" replace />;
+}
+
+function AdminDashboardOrRedirect() {
+  const user = getStrapiUser();
+  if (isWorkerUser(user)) return <Navigate to="/admin/worker-dashboard" replace />;
+  return <AdminDashboard />;
 }
 
 function AppContent() {
@@ -54,7 +61,15 @@ function AppContent() {
           path="/admin/dashboard"
           element={
             <AdminGuard>
-              <AdminDashboard />
+              <AdminDashboardOrRedirect />
+            </AdminGuard>
+          }
+        />
+        <Route
+          path="/admin/worker-dashboard"
+          element={
+            <AdminGuard>
+              <WorkerDashboard />
             </AdminGuard>
           }
         />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiUrl, setStrapiAuth, getStrapiJwt } from '../api';
+import { apiUrl, setStrapiAuth, getStrapiJwt, getStrapiUser, isWorkerUser } from '../api';
 import './AdminLogin.css';
 
 const parseAuthResponse = async (res) => {
@@ -23,7 +23,10 @@ const AdminLogin = () => {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   useEffect(() => {
-    if (getStrapiJwt()) navigate('/admin/dashboard', { replace: true });
+    if (getStrapiJwt()) {
+      const user = getStrapiUser();
+      navigate(isWorkerUser(user) ? '/admin/worker-dashboard' : '/admin/dashboard', { replace: true });
+    }
   }, [navigate]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -52,8 +55,16 @@ const AdminLogin = () => {
       if (!res.ok) {
         throw new Error(data.error?.message || data.error?.details?.errors?.[0]?.message || 'Нэвтрэхэд алдаа гарлаа.');
       }
-      setStrapiAuth(data.jwt, data.user);
-      navigate('/admin/dashboard', { replace: true });
+
+      const workerAccount = isWorkerUser(data.user);
+      // Worker accounts are not allowed to use the "Админ" tab
+      if (mode === LOGIN_MODES.admin && workerAccount) {
+        throw new Error('Энэ бүртгэл ажилтных. Дээрх цэсэн дэх "Ажилтан" табыг сонгоод нэвтэрнэ үү.');
+      }
+
+      const isWorker = mode === LOGIN_MODES.worker || workerAccount;
+      setStrapiAuth(data.jwt, data.user, isWorker ? 'worker' : 'admin');
+      navigate(isWorker ? '/admin/worker-dashboard' : '/admin/dashboard', { replace: true });
     } catch (err) {
       setError(err.message || 'Нэвтрэхэд алдаа гарлаа. Шалгаад дахин оролдоно уу.');
     } finally {
@@ -124,7 +135,7 @@ const AdminLogin = () => {
         <p className="admin-login-hint">
           {isAdmin
             ? 'Strapi-д бүртгэлтэй хэрэглэгчийн нэр/и-мэйл болон нууц үгээ оруулна уу. Өгөгдөл Strapi-д хадгалагдана.'
-            : 'Ажилтны бүртгэл Strapi-д хадгалагдана. Нэвтэрсний дараа удирдлагын самбар руу шилжинэ.'}
+            : 'Ажилтны бүртгэл Strapi-д хадгалагдана. Нэвтэрсний дараа ажилтны самбар (тайлан, хийх ажил) руу шилжинэ.'}
         </p>
       </div>
     </div>
