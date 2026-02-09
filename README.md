@@ -42,6 +42,7 @@ On first run, Strapi will prompt you to create an admin user. Use that to log in
 
 3. In Strapi Admin (http://localhost:1337/admin), go to **Settings → Users & Permissions → Roles → Public** and enable:
    - **Contact**: `create`
+   - **Holboo-barih** (Холбоо барих form): `create` — required so the public contact form can submit
    - **News**: `find`, `findOne`
    - **Service**: `find`
    - **Project**: `find`

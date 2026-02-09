@@ -31,25 +31,35 @@ const Contact = () => {
 
     setIsSubmitting(true);
     try {
-      const res = await fetch(apiUrl('/api/contacts'), {
+      // Strapi holboo-barihs: ner, email, utas, garchig, medeelel (rich text)
+      const medeelelBlocks = [
+        { type: 'paragraph', children: [{ type: 'text', text: formData.message.trim() || ' ' }] },
+      ];
+      const res = await fetch(apiUrl('/api/holboo-barihs'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           data: {
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone || '',
-            message: formData.subject
-              ? `${formData.subject}\n\n${formData.message}`
-              : formData.message,
+            ner: formData.name.trim(),
+            email: formData.email.trim(),
+            utas: formData.phone?.trim() || '',
+            garchig: formData.subject?.trim() || '',
+            medeelel: medeelelBlocks,
           },
         }),
       });
 
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        throw new Error('Failed to send');
+        if (res.status === 403) {
+          throw new Error(
+            'Илгээх эрх байхгүй байна. Strapi админ дээрээс Settings → Users & Permissions → Roles → Public → Holboo-barih → "create"-ийг идэвхжүүлнэ үү.'
+          );
+        }
+        const msg = data.error?.message || data.error?.details?.errors?.[0]?.message || 'Мессеж илгээхэд алдаа гарлаа.';
+        throw new Error(msg);
       }
 
       setStatus({ type: 'success', message: 'Мессеж амжилттай илгээгдлээ.' });
@@ -57,7 +67,7 @@ const Contact = () => {
     } catch (error) {
       setStatus({
         type: 'error',
-        message: 'Мессеж илгээхэд алдаа гарлаа. Дахин оролдоно уу.',
+        message: error.message || 'Мессеж илгээхэд алдаа гарлаа. Дахин оролдоно уу.',
       });
     } finally {
       setIsSubmitting(false);
