@@ -56,13 +56,32 @@ const AdminLogin = () => {
         throw new Error(data.error?.message || data.error?.details?.errors?.[0]?.message || 'Нэвтрэхэд алдаа гарлаа.');
       }
 
-      const workerAccount = isWorkerUser(data.user);
-      // Worker accounts are not allowed to use the "Админ" tab
-      if (mode === LOGIN_MODES.admin && workerAccount) {
-        throw new Error('Энэ бүртгэл ажилтных. Дээрх цэсэн дэх "Ажилтан" табыг сонгоод нэвтэрнэ үү.');
+      // On Admin tab: fetch full user with role so we can block workers
+      let isWorkerAccount = isWorkerUser(data.user);
+      if (mode === LOGIN_MODES.admin) {
+        try {
+          const meRes = await fetch(apiUrl('/api/users/me?populate=role'), {
+            headers: { Authorization: `Bearer ${data.jwt}` },
+          });
+          if (meRes.ok) {
+            const meData = await meRes.json();
+            isWorkerAccount = isWorkerUser(meData);
+          } else if (meRes.status === 403) {
+            // Worker role usually doesn't have User→me permission, so workers get 403 → block them
+            isWorkerAccount = true;
+          }
+        } catch {
+          // If STRAPI_WORKER_ROLE_ID is set we can still detect from data.user.role.id
+          if (!isWorkerAccount) isWorkerAccount = isWorkerUser(data.user);
+        }
+        if (isWorkerAccount) {
+          setLoading(false);
+          setError('Нэвтрэх боломжгүй. Энэ бүртгэл зөвхөн ажилтны хувьд. "Ажилтан" табыг сонгоод нэвтэрнэ үү.');
+          return;
+        }
       }
 
-      const isWorker = mode === LOGIN_MODES.worker || workerAccount;
+      const isWorker = mode === LOGIN_MODES.worker || isWorkerAccount;
       setStrapiAuth(data.jwt, data.user, isWorker ? 'worker' : 'admin');
       navigate(isWorker ? '/admin/worker-dashboard' : '/admin/dashboard', { replace: true });
     } catch (err) {

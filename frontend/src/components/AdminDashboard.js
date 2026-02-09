@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { clearStrapiAuth } from '../api';
+import { clearStrapiAuth, getStrapiUser, isWorkerUser } from '../api';
 import NewsManagement from './admin/NewsManagement';
 import ContactList from './admin/ContactList';
 import TonogTuhuurumjList from './admin/TonogTuhuurumjList';
 import HolbooBarihList from './admin/HolbooBarihList';
+import ShideluudList from './admin/ShideluudList';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -14,10 +15,28 @@ const AdminDashboard = () => {
     location.state?.section || 'news'
   );
 
+  // Workers must use worker dashboard; redirect if they land here (avoids News fetch 403)
+  const user = getStrapiUser();
+  const isWorker = isWorkerUser(user);
+  useEffect(() => {
+    if (isWorker) {
+      navigate('/admin/worker-dashboard', { replace: true });
+    }
+  }, [isWorker, navigate]);
+
   const handleLogout = () => {
     clearStrapiAuth();
     navigate('/admin', { replace: true });
   };
+
+  // Don't render admin content for workers (prevents News fetch before redirect)
+  if (isWorker) {
+    return (
+      <div className="admin-dashboard" style={{ padding: '2rem', color: 'rgba(255,255,255,0.8)' }}>
+        Ажилтны самбар руу шилжиж байна...
+      </div>
+    );
+  }
 
   return (
     <div className="admin-dashboard">
@@ -55,6 +74,13 @@ const AdminDashboard = () => {
           >
             📬 Холбоо барих
           </button>
+          <button
+            type="button"
+            className={section === 'shideluud' ? 'active' : ''}
+            onClick={() => setSection('shideluud')}
+          >
+            📋 Шийдлүүд
+          </button>
         </nav>
         <button type="button" className="admin-logout-btn" onClick={handleLogout}>
           Гарах
@@ -65,6 +91,7 @@ const AdminDashboard = () => {
         {section === 'contacts' && <ContactList />}
         {section === 'tonog' && <TonogTuhuurumjList />}
         {section === 'holboo' && <HolbooBarihList />}
+        {section === 'shideluud' && <ShideluudList />}
       </main>
     </div>
   );

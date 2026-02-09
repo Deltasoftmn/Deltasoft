@@ -56,6 +56,11 @@ On first run, Strapi will prompt you to create an admin user. Use that to log in
    - Then go to **Content-Manager → User** (under Users & Permissions) and **Create new entry**: set email and password, assign the role above.
    - On the website, open **/admin**, log in with that email and password. You can then add/edit news (saved in Strapi) and manage contacts; the public site fetches that data from Strapi and displays it.
 
+5. **Worker vs Admin login** – So that workers cannot log in via the "Админ" tab:
+   - **Authenticated** role: Under **User**, enable **me** (and **find**) so the site can call `GET /api/users/me?populate=role`. Admins will get 200 and can log in on the Admin tab.
+   - **Worker** role: Do **not** enable **User → me** for Worker. Then when a worker tries the Admin tab, `/users/me` returns 403 and the site blocks them with "Нэвтрэх боломжгүй…". Workers must use the "Ажилтан" tab to sign in.
+   - Optional: set **REACT_APP_STRAPI_WORKER_ROLE_ID** to the Worker role ID (e.g. `3`) in frontend env if you need fallback detection when Strapi returns only `role.id` in the login response.
+
 ### Running the Application
 
 Run both Strapi and frontend:

@@ -47,13 +47,20 @@ export function getStrapiUser() {
   }
 }
 
-/** True if user has Worker role (by role.name, stored role hint, or login mode). */
+/** Worker role ID from Strapi (optional). Set REACT_APP_STRAPI_WORKER_ROLE_ID if Strapi returns only role id. */
+export const STRAPI_WORKER_ROLE_ID = process.env.REACT_APP_STRAPI_WORKER_ROLE_ID
+  ? String(process.env.REACT_APP_STRAPI_WORKER_ROLE_ID).trim()
+  : '';
+
+/** True if user has Worker role (by role.name, role.id, stored role hint, or login mode). */
 export function isWorkerUser(user) {
   const storedRole = localStorage.getItem(STRAPI_ROLE_KEY);
   if (storedRole && storedRole.toLowerCase() === 'worker') return true;
   if (!user) return false;
-  const name = user.role?.name || user.role?.type || '';
-  return String(name).toLowerCase().includes('worker');
+  const roleId = user.role?.id ?? user.role;
+  if (STRAPI_WORKER_ROLE_ID && String(roleId) === STRAPI_WORKER_ROLE_ID) return true;
+  const name = String(user.role?.name || user.role?.type || '').toLowerCase();
+  return name.includes('worker') || name.includes('ажилтан');
 }
 
 export function getAuthHeaders() {

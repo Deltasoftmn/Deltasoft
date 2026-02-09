@@ -218,3 +218,25 @@
   padding: 0.4rem 0.75rem;
   font-size: 0.85rem;
 }
+
+/* Шийдлүүд search */
+.shideluud-search-wrap {
+  margin-bottom: 1rem;
+}
+.shideluud-search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  color: var(--primary-white, #fff);
+  background: var(--surface-elevated, #1a1a1a);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 6px);
+}
+.shideluud-search-input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+.shideluud-search-input:focus {
+  outline: none;
+  border-color: var(--primary-green, #b7e400);
+}
