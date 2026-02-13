@@ -18,6 +18,8 @@ function descriptionToText(desc) {
   return '';
 }
 
+const NEWS_CARD_PREVIEW_LENGTH = 150;
+
 /** Parse one item from Strapi: flat (Title, Description, Image[]) or nested (attributes) */
 function parseNewsItem(d) {
   if (!d) return null;
@@ -216,7 +218,11 @@ const News = () => {
                       </p>
                     )}
                     {newsItem.author && <p className="news-card-author">{newsItem.author}</p>}
-                    <p className="news-card-text">{newsItem.content}</p>
+                    <p className="news-card-text">
+                      {newsItem.content && newsItem.content.length > NEWS_CARD_PREVIEW_LENGTH
+                        ? `${newsItem.content.slice(0, NEWS_CARD_PREVIEW_LENGTH).trim()}…`
+                        : newsItem.content}
+                    </p>
                   </div>
                 </article>
               </Link>
