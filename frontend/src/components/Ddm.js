@@ -60,6 +60,7 @@ const Ddm = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [activeItem, setActiveItem] = useState(null);
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -87,6 +88,14 @@ const Ddm = () => {
     fetchPortfolios();
   }, []);
 
+  const handleOpen = (item) => {
+    setActiveItem(item);
+  };
+
+  const handleClose = () => {
+    setActiveItem(null);
+  };
+
   return (
     <div className="page ddm-page" data-aos="fade-up">
       <div className="container">
@@ -106,16 +115,14 @@ const Ddm = () => {
           <div className="portfolio-grid">
             {items.map((item) => {
               const key = item.documentId || item.id;
-              const clickTarget = item.link || item.mediaUrl || '#';
               const isFacebook = (item.link || '').toLowerCase().includes('facebook.com');
 
               return (
-                <a
+                <button
                   key={key}
-                  href={clickTarget}
                   className="portfolio-card"
-                  target="_blank"
-                  rel="noreferrer"
+                  type="button"
+                  onClick={() => handleOpen(item)}
                 >
                   <div className="portfolio-media">
                     {item.mediaUrl ? (
@@ -123,14 +130,65 @@ const Ddm = () => {
                     ) : (
                       <div className={`portfolio-placeholder-block${isFacebook ? ' portfolio-placeholder-facebook' : ''}`} />
                     )}
-                    <div className="portfolio-hover-layer" />
+                    <div className="portfolio-hover-layer">
+                      {item.link && (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="portfolio-hover-text"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                          }}
+                        >
+                          Линкрүү үсрэх
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </a>
+                </button>
               );
             })}
           </div>
         )}
       </div>
+      {activeItem && (
+        <div className="ddm-modal-backdrop" onClick={handleClose} role="button" tabIndex={-1}>
+          <div
+            className="ddm-modal"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <button type="button" className="ddm-modal-close" onClick={handleClose}>
+              ×
+            </button>
+            <div className="ddm-modal-media">
+              {activeItem.type === 'video' &&
+              activeItem.link &&
+              (activeItem.link.toLowerCase().includes('youtube.com') ||
+                activeItem.link.toLowerCase().includes('youtu.be')) ? (
+                <iframe
+                  src={activeItem.link}
+                  title="portfolio-video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              ) : (
+                activeItem.mediaUrl && <img src={activeItem.mediaUrl} alt="" />
+              )}
+            </div>
+            {activeItem.link && (
+              <div className="ddm-modal-footer">
+                <a href={activeItem.link} target="_blank" rel="noreferrer" className="ddm-modal-link">
+                  Линкрүү үсрэх
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
