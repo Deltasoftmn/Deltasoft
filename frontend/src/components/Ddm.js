@@ -91,7 +91,6 @@ const Ddm = () => {
     <div className="page ddm-page" data-aos="fade-up">
       <div className="container">
         <div className="ddm-header">
-          <h1>Портфолио</h1>
           {items.length > 0 && !loading && (
             <span className="ddm-count">Нийт: {items.length}</span>
           )}
