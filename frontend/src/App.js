@@ -14,6 +14,7 @@ import Uilchilgee from './components/Uilchilgee';
 import TonogTohooromj from './components/TonogTohooromj';
 import VevDev from './components/VevDev';
 import Delgets from './components/Delgets';
+import Ddm from './components/Ddm';
 import AdminDashboard from './components/AdminDashboard';
 import WorkerDashboard from './components/WorkerDashboard';
 import AdminRedirect from './components/AdminRedirect';
@@ -90,6 +91,7 @@ function AppContent() {
                   <Route path="/tonog-tohooromj" element={<TonogTohooromj />} />
                   <Route path="/vev-dev" element={<VevDev />} />
                   <Route path="/delgets" element={<Delgets />} />
+                  <Route path="/ddm" element={<Ddm />} />
                   <Route path="/contact" element={<Contact />} />
                 </Routes>
               </div>
