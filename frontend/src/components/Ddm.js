@@ -21,7 +21,7 @@ function getLabelFromLink(url, type) {
 
 function normalizePortfolio(item) {
   if (!item) return null;
-  const { id, documentId, link, Image, Video } = item;
+  const { id, documentId, link, Image, Video, Title } = item;
 
   const firstImage = Array.isArray(Image) && Image.length > 0 ? Image[0] : null;
   const firstVideoThumb = Array.isArray(Video) && Video.length > 0 ? Video[0] : null;
@@ -63,9 +63,8 @@ function normalizePortfolio(item) {
   }
 
   const media = firstImage || firstVideoThumb;
-  const label =
-    getLabelFromMedia(media) ||
-    getLabelFromLink(link, type);
+  const title = typeof Title === 'string' ? Title.trim() : '';
+  const label = title || getLabelFromMedia(media) || getLabelFromLink(link, type);
 
   return {
     id,
