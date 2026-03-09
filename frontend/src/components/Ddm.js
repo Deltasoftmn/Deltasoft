@@ -2,6 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { apiUrl } from '../api';
 import './Ddm.css';
 
+function getLabelFromMedia(media) {
+  if (!media || !media.name) return null;
+  const name = String(media.name);
+  const withoutExt = name.replace(/\.[a-zA-Z0-9]+$/, '');
+  return withoutExt.length > 40 ? withoutExt.slice(0, 37) + '...' : withoutExt;
+}
+
+function getLabelFromLink(url, type) {
+  if (!url) return type === 'video' ? 'Видео' : type === 'image' ? 'Зураг' : 'Линк';
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, '');
+    return host.length > 30 ? host.slice(0, 27) + '...' : host;
+  } catch {
+    return type === 'video' ? 'Видео' : type === 'image' ? 'Зураг' : 'Линк';
+  }
+}
+
 function normalizePortfolio(item) {
   if (!item) return null;
   const { id, documentId, link, Image, Video } = item;
@@ -30,12 +47,10 @@ function normalizePortfolio(item) {
     const original = String(link);
     const lower = original.toLowerCase();
 
-    // If link is direct image URL, treat as image
     if (/\.(jpg|jpeg|png|gif|webp)(\?|$)/.test(lower)) {
       type = 'image';
       mediaUrl = link;
     } else if (lower.includes('youtube.com') || lower.includes('youtu.be')) {
-      // Treat YouTube links as video and use thumbnail as preview
       type = 'video';
       const idMatch =
         original.match(/[?&]v=([^&]+)/) ||
@@ -47,12 +62,18 @@ function normalizePortfolio(item) {
     }
   }
 
+  const media = firstImage || firstVideoThumb;
+  const label =
+    getLabelFromMedia(media) ||
+    getLabelFromLink(link, type);
+
   return {
     id,
     documentId,
     link: link || '',
     mediaUrl,
     type,
+    label,
   };
 }
 
@@ -131,6 +152,7 @@ const Ddm = () => {
                       <div className={`portfolio-placeholder-block${isFacebook ? ' portfolio-placeholder-facebook' : ''}`} />
                     )}
                     <div className="portfolio-hover-layer">
+                      <span className="portfolio-hover-name">{item.label}</span>
                       {item.link && (
                         <a
                           href={item.link}
