@@ -28,21 +28,42 @@ function normalizePortfolio(item) {
 
   let type = 'link';
   let mediaUrl = null;
+  let videoUrl = null;
 
   if (firstImage || firstVideoThumb) {
-    if (firstImage) type = 'image';
-    else if (firstVideoThumb) type = 'video';
+    if (firstImage) {
+      type = 'image';
+      const media = firstImage;
+      const formats = media?.formats || {};
+      const mediaPath =
+        formats.medium?.url ||
+        formats.small?.url ||
+        formats.thumbnail?.url ||
+        media?.url ||
+        null;
+      mediaUrl = mediaPath ? apiUrl(mediaPath) : null;
+    } else if (firstVideoThumb) {
+      type = 'video';
+      const media = firstVideoThumb;
+      const mime = media?.mime || '';
+      const isImageThumb = typeof mime === 'string' && mime.startsWith('image/');
 
-    const media = firstImage || firstVideoThumb;
-    const formats = media?.formats || {};
-    const mediaPath =
-      formats.medium?.url ||
-      formats.small?.url ||
-      formats.thumbnail?.url ||
-      media?.url ||
-      null;
-
-    mediaUrl = mediaPath ? apiUrl(mediaPath) : null;
+      if (isImageThumb) {
+        const formats = media?.formats || {};
+        const mediaPath =
+          formats.medium?.url ||
+          formats.small?.url ||
+          formats.thumbnail?.url ||
+          media?.url ||
+          null;
+        mediaUrl = mediaPath ? apiUrl(mediaPath) : null;
+      } else {
+        // Uploaded video file (e.g. mp4) without image thumbnail
+        // Use it only for the big video player, not as <img src>.
+        const url = media?.url || null;
+        videoUrl = url ? apiUrl(url) : null;
+      }
+    }
   } else if (link) {
     const original = String(link);
     const lower = original.toLowerCase();
@@ -72,6 +93,7 @@ function normalizePortfolio(item) {
     link: link || '',
     mediaUrl,
     type,
+    videoUrl,
     label,
   };
 }
@@ -87,14 +109,42 @@ const Ddm = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch(apiUrl('/api/portfolios?populate=*'));
-        if (!res.ok) {
-          throw new Error('Портфолио жагсаалт татахад алдаа гарлаа.');
+        const pageSize = 50;
+        let page = 1;
+        let allData = [];
+        // Fetch all pages until we get less than pageSize
+        // so we are not limited by Strapi's default 25 items.
+        // /api/portfolios?pagination[page]=1&pagination[pageSize]=50&populate=*
+        // See: https://admin.deltasoft.website/api/portfolios?populate=*
+        // (same endpoint, but with explicit pagination params).
+        // We guard with maxPages to avoid infinite loops if API misbehaves.
+        const maxPages = 20;
+
+        // eslint-disable-next-line no-constant-condition
+        while (true) {
+          const url = apiUrl(
+            `/api/portfolios?populate=*&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+          );
+          const res = await fetch(url);
+          if (!res.ok) {
+            throw new Error('Портфолио жагсаалт татахад алдаа гарлаа.');
+          }
+          const json = await res.json();
+          const raw = json.data || [];
+          allData = allData.concat(raw);
+
+          const received = Array.isArray(raw) ? raw.length : 0;
+          const meta = json.meta?.pagination;
+          const totalPages = meta?.pageCount || null;
+
+          if (received < pageSize || !totalPages || page >= totalPages || page >= maxPages) {
+            break;
+          }
+          page += 1;
         }
-        const json = await res.json();
-        const raw = json.data || [];
-        const normalized = Array.isArray(raw)
-          ? raw.map(normalizePortfolio).filter(Boolean)
+
+        const normalized = Array.isArray(allData)
+          ? allData.map(normalizePortfolio).filter(Boolean)
           : [];
         setItems(normalized);
       } catch (e) {
@@ -147,6 +197,10 @@ const Ddm = () => {
                   <div className="portfolio-media">
                     {item.mediaUrl ? (
                       <img src={item.mediaUrl} alt="" />
+                    ) : item.type === 'video' && item.videoUrl ? (
+                      <div className="portfolio-video-placeholder">
+                        <span className="portfolio-video-icon">▶</span>
+                      </div>
                     ) : (
                       <div className={`portfolio-placeholder-block${isFacebook ? ' portfolio-placeholder-facebook' : ''}`} />
                     )}
@@ -185,17 +239,25 @@ const Ddm = () => {
               ×
             </button>
             <div className="ddm-modal-media">
-              {activeItem.type === 'video' &&
-              activeItem.link &&
-              (activeItem.link.toLowerCase().includes('youtube.com') ||
-                activeItem.link.toLowerCase().includes('youtu.be')) ? (
-                <iframe
-                  src={activeItem.link}
-                  title="portfolio-video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                />
+              {activeItem.type === 'video' ? (
+                activeItem.link &&
+                (activeItem.link.toLowerCase().includes('youtube.com') ||
+                  activeItem.link.toLowerCase().includes('youtu.be')) ? (
+                  <iframe
+                    src={activeItem.link}
+                    title="portfolio-video"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : activeItem.videoUrl ? (
+                  <video
+                    src={activeItem.videoUrl}
+                    controls
+                  />
+                ) : (
+                  activeItem.mediaUrl && <img src={activeItem.mediaUrl} alt="" />
+                )
               ) : (
                 activeItem.mediaUrl && <img src={activeItem.mediaUrl} alt="" />
               )}
