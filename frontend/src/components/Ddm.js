@@ -198,9 +198,13 @@ const Ddm = () => {
                     {item.mediaUrl ? (
                       <img src={item.mediaUrl} alt="" />
                     ) : item.type === 'video' && item.videoUrl ? (
-                      <div className="portfolio-video-placeholder">
-                        <span className="portfolio-video-icon">▶</span>
-                      </div>
+                      <video
+                        className="portfolio-video-thumb"
+                        src={item.videoUrl}
+                        muted
+                        loop
+                        playsInline
+                      />
                     ) : (
                       <div className={`portfolio-placeholder-block${isFacebook ? ' portfolio-placeholder-facebook' : ''}`} />
                     )}
